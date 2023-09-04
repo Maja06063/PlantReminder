@@ -30,7 +30,7 @@ except mysql.connector.Error as e:
 
 #Tworzenie serwera http    
 
-app = Flask(__name__)
+app = Flask(__name__) #tworzenie nowej instancji klasy Flask
 
 @app.route('/')
 def hello():
@@ -49,5 +49,3 @@ def dane():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
