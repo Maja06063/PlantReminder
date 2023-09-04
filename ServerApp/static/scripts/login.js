@@ -1,18 +1,18 @@
-var email = document.forms['form']['email'];
+var login = document.forms['form']['login'];
 var password = document.forms['form']['password'];
 
-var email_error = document.getElementById('email_error');
+var login_error = document.getElementById('login_error');
 var pass_error = document.getElementById('pass_error');
 
 
-email.addEventListener('textInput', email_Verify);
+login.addEventListener('textInput', login_Verify);
 password.addEventListener('textInput', pass_Verify);
 
 function validated(){
-	if (email.value.length < 9) {
-		email.style.border = "1px solid red";
-		email_error.style.display = "block";
-		email.focus();
+	if (login.value.length < 9) {
+		login.style.border = "1px solid red";
+		login_error.style.display = "block";
+		login.focus();
 		return false;
 	}
 	if (password.value.length < 6) {

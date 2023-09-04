@@ -1,51 +1,31 @@
 import mysql.connector
-from flask import Flask
 
 #Sprawdzenie połączenia z bazą
-try:
-    connection = mysql.connector.connect(
-        host='localhost',
-        user='sqluser',
-        password='1234',
-        database='plantreminderdb'
-    )
-    if connection.is_connected():
-        print('Połączono z bazą danych!')
+def base_connect():
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            user='sqluser',
+            password='1234',
+            database='plantreminderdb'
+        )
+        if connection.is_connected():
+            print('Połączono z bazą danych!')
 
-except mysql.connector.Error as e:
-    print('Błąd połączenia z bazą danych:', e)
+    except mysql.connector.Error as e:
+        print('Błąd połączenia z bazą danych:', e)
+    return connection
 
 #Wypisanie danych z tabeli
-try:
-    cursor = connection.cursor()
-    cursor.execute('SELECT * FROM plants')
+"""def write_data():
+    try:
+        cursor = connection.cursor()
+        cursor.execute('SELECT * FROM plants')
 
-    rows = cursor.fetchall()
+        rows = cursor.fetchall()
 
-    for row in rows:
-        print(row)
+        for row in rows:
+            print(row)
 
-except mysql.connector.Error as e:
-    print('Błąd przy wykonywaniu zapytania:', e)
-
-#Tworzenie serwera http    
-
-app = Flask(__name__) #tworzenie nowej instancji klasy Flask
-
-@app.route('/')
-def hello():
-    return 'To będzie praca inżynierska PlantReminder. <a href=/Dane>Kliknij mnie<a/>'
-
-@app.route('/Dane')
-def dane():
-    cursor = connection.cursor()
-    cursor.execute('SELECT * FROM plants')
-
-    rows = cursor.fetchall()
-
-    for i in range(0,len(rows)):
-        rows[i]= str(rows[i])+'<br>'
-    return str(rows)
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    except mysql.connector.Error as e:
+        print('Błąd przy wykonywaniu zapytania:', e)"""
