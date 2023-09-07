@@ -12,6 +12,13 @@ def initial_web_page():
 def redirect_to_login_page():
     return "<script>location.href = '/';</script>"
 
+@app.route('/podstrona_sign', methods=['GET','POST'])
+def redirect_to_sign_page():
+    return render_template("podstrona_sign.html")
+
+@app.route('/forgot_password', methods=['GET'])
+def redirect_to_forgot_password():
+    return render_template("forgot_password.html")
 
 @app.route('/podstrona_login', methods=['POST'])
 def logged_page():

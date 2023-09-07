@@ -21,7 +21,7 @@
     <form action="podstrona_login" class = "bezimg-container" method="post" name = "form" onsubmit="return validated()">
       <input type = "text" placeholder = "Login" name = "login"><br><br>
       <div id = "login_error">Enter the correct login to sign in</div>
-      <input autocomplete="off" = "password" placeholder = "Password" name ="password" ><br><br>
+      <input autocomplete="off" placeholder = "Password" name ="password" ><br><br>
       <div id = "pass_error">Enter the correct password to sign in</div>
       <div class = "button-container">
         <form>
@@ -29,7 +29,7 @@
           <button class="login-button" type="submit" formaction="podstrona_login">Log in</button>
         </form>
       </div>
-      <a href="#">Forgot your password?</a>
+      <a href="forgot_password">Forgot your password?</a>
     </form>
     <img src="{{ url_for('static', filename='img/purple_heather.jpg') }}">
   </center>

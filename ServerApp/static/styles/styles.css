@@ -23,7 +23,6 @@ body {
 
 .bezimg-container {
   padding: 20px;
-
 }
 
 .center-container h1 {
@@ -43,6 +42,7 @@ body {
   animation: shake_541 0.14s 3;
   margin-bottom: -14px; /* Usuwa margines dolny */
 }
+
 .bezimg-container #login_error,
 .bezimg-container #pass_error {
   width: 224px;
@@ -56,18 +56,22 @@ body {
   margin-bottom: 14px; /* Usuwa margines dolny */
   display: none;
 }
+
 input:valid {
   border-color: #827d20;
   animation: none;
 }
+
 .center-container a{
   height: 10%;
   color: #827d20;
   text-decoration: none;
 }
+
 .center-container a:hover{
   text-decoration: underline;
 }
+
 @keyframes shake_541 {
   0%, 100% {
     translate: 0;
