@@ -54,6 +54,7 @@
 
 .button-container {
   display: flex;
+  text-align: center; /* Dodaj tę deklarację */
 }
 
 .button-container button {
