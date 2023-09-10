@@ -26,6 +26,12 @@ body {
   font-size: 26px;
   color: #827d20;
 }
+.card h3{
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #827d20;
+  font-weight: normal;
+}
 .card img{
   width: 60%;
   height: 90px;
@@ -43,7 +49,11 @@ body {
       margin:  10px 10px;
   }
 }
-
+.card p{
+  margin: 3px;
+  font-size: 14px;
+  color: #827d20;
+}
 .sidebar {
   width: 200px;
   height: 950px;

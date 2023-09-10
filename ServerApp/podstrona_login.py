@@ -5,7 +5,9 @@ def generate_one_card(plant,connection) -> str:
     cursor.execute("SELECT * FROM Species WHERE species_id = '" + str(plant[2])+ "';")
     species = cursor.fetchall()
     species=list(species[0])
-    plant_name=species[1]
+    species_name=species[1]
+    plant_name=plant[3]
+    species_desc=species[5]
     if None in plant[4:7]:
         for i in range(4,7):
             if plant[i]==None:
@@ -15,12 +17,14 @@ def generate_one_card(plant,connection) -> str:
         <div class="card">
             <center>
                 <h2 class="no-bold-header">%s</h2>
-                <span style="display: block";> Następne podlewanie:%d </span>
-                <span style="display: block";> Następne nawożenie:%d </span>
-                <span style="display: block";> Następne wydarzenie:%d </span>
+                <h3 class="Species-header">%s</h3>
+                <span style="display: block";> Następne podlewanie:Za <strong>%d</strong> dni</span>
+                <span style="display: block";> Następne nawożenie:Za <strong>%d</strong> dni</span>
+                <span style="display: block";> Następne wydarzenie:Za <strong>%d</strong> dni</span>
+                <p class="species-description">Opis: %s</p>
             </center>
         </div>
-        """ % (plant_name,plant[4],plant[5],plant[6])
+        """ % (species_name,plant_name,plant[4],plant[5],plant[6],species_desc)
 
     return card
 
