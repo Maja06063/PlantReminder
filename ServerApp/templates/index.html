@@ -21,7 +21,8 @@
     <form action="podstrona_login" class = "bezimg-container" method="post" name = "form" onsubmit="return validated()">
       <input type = "text" placeholder = "Login" name = "login"><br><br>
       <div id = "login_error">Enter the correct login to sign in</div>
-      <input autocomplete="off" placeholder = "Password" name ="password" ><br><br>
+      <div id = "regist_ok">Registration done, please log in</div>
+      <input autocomplete="off" type = "password" placeholder = "Password" name ="password" ><br><br>
       <div id = "pass_error">Enter the correct password to sign in</div>
       <div class = "button-container">
         <form>
@@ -42,6 +43,5 @@
   <div class="footer">
     <p>© 2023 PlantReminder.</p>
   </div>
-  <script> src="login.js"</script>
 </body>
 </html>

@@ -18,8 +18,8 @@ def generate_one_card(plant_list, connection) -> str:
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM Species WHERE species_id = '" + str(plant.species_id)+ "';")
     species = cursor.fetchall()
-    species=list(species[0])
-    species_name=species[1]
+    species = list(species[0])
+    species_name = species[1]
 
     if plant.watering_period == None:
         plant.watering_period = species[2]

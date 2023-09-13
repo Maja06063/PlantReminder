@@ -44,7 +44,8 @@ body {
 }
 
 .bezimg-container #login_error,
-.bezimg-container #pass_error {
+.bezimg-container #pass_error,
+.bezimg-container #regist_ok {
   width: 224px;
   font-size: 12px;
   color: #C62828;

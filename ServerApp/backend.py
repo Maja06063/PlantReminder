@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 from podstrona_login import generate_logged_page
 from dbConector import base_connect
+from users import userRegistered
 
 app = Flask(__name__) #tworzenie nowej instancji klasy Flask
 
@@ -15,6 +16,17 @@ def redirect_to_login_page():
 @app.route('/podstrona_sign', methods=['GET','POST'])
 def redirect_to_sign_page():
     return render_template("podstrona_sign.html")
+
+@app.route('/register', methods=['POST'])
+def register_endpoint():
+    post_data_dict = request.form.to_dict()
+    if userRegistered(post_data_dict, connection):
+        return render_template("index.html") + """
+            <script>var regist_ok = document.getElementById("regist_ok");
+            regist_ok.style.display = "block";</script>
+            """
+    else:
+        return "Rejestracja nie udana"
 
 @app.route('/forgot_password', methods=['GET'])
 def redirect_to_forgot_password():
