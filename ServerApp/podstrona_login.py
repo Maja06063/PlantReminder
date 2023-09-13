@@ -1,17 +1,32 @@
 from flask import render_template
+from plant import Plant
+from datetime import date, datetime, timedelta
 
-def generate_one_card(plant,connection) -> str:
+HTML_EMPTY_SPACE = "&nbsp;"
+
+def days_to_care(last_action_date, days_to_add) -> int:
+
+    delta = timedelta(days=days_to_add)
+    today = date.today()
+    result = int((last_action_date + delta - today).days)
+
+    return result if result > 0 else 0
+
+def generate_one_card(plant_list, connection) -> str:
+
+    plant = Plant(plant_list)
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM Species WHERE species_id = '" + str(plant[2])+ "';")
+    cursor.execute("SELECT * FROM Species WHERE species_id = '" + str(plant.species_id)+ "';")
     species = cursor.fetchall()
     species=list(species[0])
     species_name=species[1]
-    plant_name=plant[3]
-    species_desc=species[5]
-    if None in plant[4:7]:
-        for i in range(4,7):
-            if plant[i]==None:
-                plant[i]=species[i-2]
+
+    if plant.watering_period == None:
+        plant.watering_period = species[2]
+    if plant.fertilization_period == None:
+        plant.fertilization_period = species[3]
+    if plant.light == None:
+        plant.light = species[4]
 
     card = """
         <div class="card">
@@ -21,10 +36,17 @@ def generate_one_card(plant,connection) -> str:
                 <span style="display: block";> Następne podlewanie:Za <strong>%d</strong> dni</span>
                 <span style="display: block";> Następne nawożenie:Za <strong>%d</strong> dni</span>
                 <span style="display: block";> Następne wydarzenie:Za <strong>%d</strong> dni</span>
-                <p class="species-description">Opis: %s</p>
+                <p class="species-description">%s</p>
             </center>
         </div>
-        """ % (species_name,plant_name,plant[4],plant[5],plant[6],species_desc)
+        """ % (
+            species_name,
+            plant.name if plant.name != None else HTML_EMPTY_SPACE,
+            days_to_care(plant.last_watered_date, plant.watering_period),
+            days_to_care(plant.last_fertilized_date, plant.fertilization_period),
+            plant.light,
+            plant.description if plant.description != None else HTML_EMPTY_SPACE,
+        )
 
     return card
 
