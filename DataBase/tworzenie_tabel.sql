@@ -16,21 +16,21 @@ CREATE TABLE Species(
     name varchar(255) NOT NULL,
     watering_period int NOT NULL,
     fertilization_period int NOT NULL,
-    light int NOT NULL,
-    species_description varchar(1000)
-    
+    light int NOT NULL
 );
 
 CREATE TABLE Plants(
     plant_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     login varchar(255) NOT NULL,
     plant_species int NOT NULL,
-    plant_description varchar(1000),
+    plant_name varchar(20),
     watering_period int,
     fertilization_period int,
     light int,
-    added_date date NOT NULL,
-    
+    plant_description varchar(100),
+    last_watering_date date NOT NULL,
+    last_fertilization_date date NOT NULL,
+
     FOREIGN KEY (login) REFERENCES UserName(login),
     FOREIGN KEY (plant_species) REFERENCES Species(species_id)
 );
