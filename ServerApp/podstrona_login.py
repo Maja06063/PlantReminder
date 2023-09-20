@@ -67,6 +67,6 @@ def generate_logged_page(args_dict, connection) -> str:
     cursor.execute("SELECT * FROM Plants WHERE login = '" + args_dict["login"] + "';")
     plants = cursor.fetchall()
 
-
-
-    return render_template("podstrona_login.html") + generate_plants_cards(plants,connection)
+    return render_template("podstrona_login.html") + generate_plants_cards(plants,connection)+'''
+    <script>localStorage.setItem('login', '%s');
+    localStorage.setItem('password', '%s');</script>'''% (args_dict["login"], args_dict["password"])

@@ -13,7 +13,7 @@
     <div class="sidebar-container">
       <div class="sidebar">
         <h1 class="no-bold-header">PlantReminder</h1>
-        <a href="my_account.html">Moje konto</a>
+        <a onclick="goToMyAccount()">Moje konto</a>
         <a href="#">Moje rośliny</a>
         <a href="calendar.html">Kalendarz</a>
         <img src="{{ url_for('static', filename='img/areka.png') }}">
@@ -23,12 +23,36 @@
         <!-- TUTAJ APKA DODAJE KARTY ROŚLIN -->
       </div>
     </div>
-    <div class="button-container">
+    <div class="return-button-container">
       <button class="return-button" onclick="goBack()">Cofnij</button>
     </div>
     <script>
       function goBack() {
         window.history.back();
+      }
+
+      function goToMyAccount() {
+        const login = localStorage.getItem('login');
+        const password = localStorage.getItem('password');
+
+        const authData = {
+          login: login,
+          password: password
+        };
+
+        // Wyślij request POST za pomocą Fetch
+        fetch('/my_account', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(authData)
+        })
+        .then(data => {
+          const htmlContent = data;
+          const container = document.getElementById('container');
+          container.innerHTML = htmlContent;
+        })
       }
     </script>
   </div>
