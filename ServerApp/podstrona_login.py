@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, make_response, Response
 from plant import Plant
 from datetime import date, datetime, timedelta
 
@@ -56,17 +56,24 @@ def generate_plants_cards(plants,connection) -> str:
     for plant in plants:
         cards += generate_one_card(list(plant),connection)
 
-    cards_script = """<script>var plant_cards = document.getElementById("plant_cards");
-        plant_cards.innerHTML = `%s`;</script>""" % cards
+    return cards
 
-    return cards_script
-
-def generate_logged_page(args_dict, connection) -> str:
+def generate_logged_page(args_dict, connection) -> Response:
 
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM Plants WHERE login = '" + args_dict["login"] + "';")
     plants = cursor.fetchall()
 
-    return render_template("podstrona_login.html") + generate_plants_cards(plants,connection)+'''
-    <script>localStorage.setItem('login', '%s');
-    localStorage.setItem('password', '%s');</script>'''% (args_dict["login"], args_dict["password"])
+    page_str = render_template("podstrona_login.html", plants_cards = generate_plants_cards(plants,connection))
+
+    response = make_response(page_str)
+    response.set_cookie('login', args_dict["login"])
+    return response
+
+def generate_plants_page(login, connection) -> str:
+
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM Plants WHERE login = '" + login + "';")
+    plants = cursor.fetchall()
+
+    return render_template("podstrona_login.html", plants_cards = generate_plants_cards(plants,connection))
