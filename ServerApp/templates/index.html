@@ -16,21 +16,21 @@
 <body>
   <center class="center-container">
     <!-- Nagłówek bez pogrubienia -->
-    <h1 class="no-bold-header">Login</h1>
+    <h1 class="no-bold-header">Zaloguj się</h1>
 
     <form action="podstrona_login" class = "bezimg-container" method="post" name = "form" onsubmit="return validated()">
       <input type = "text" placeholder = "Login" name = "login"><br><br>
-      <div id = "login_error">Enter the correct login to sign in</div>
-      <div id = "regist_ok">Registration done, please log in</div>
-      <input autocomplete="off" type = "password" placeholder = "Password" name ="password" ><br><br>
-      <div id = "pass_error">Enter the correct password to sign in</div>
+      <div id = "login_error">Wpisz poprawne hasło, aby się zalogować.</div>
+      <div id = "regist_ok">Udana rejestracja, możesz się zalogować.</div>
+      <input autocomplete="off" type = "password" placeholder = "Hasło" name ="password" ><br><br>
+      <div id = "pass_error">Wpisz poprawne hasło, aby się zalogować</div>
       <div class = "button-container">
         <form>
-          <button class="signup-button" type="button" onclick="window.location.href='podstrona_sign'">Sign in</button>
-          <button class="login-button" type="submit" formaction="podstrona_login">Log in</button>
+          <button class="signup-button" type="button" onclick="window.location.href='podstrona_sign'">Zarejestruj się</button>
+          <button class="login-button" type="submit" formaction="podstrona_login">Zaloguj się</button>
         </form>
       </div>
-      <a href="forgot_password">Forgot your password?</a>
+      <a href="forgot_password">Zapomniałeś hasła?</a>
     </form>
     <img src="{{ url_for('static', filename='img/purple_heather.jpg') }}">
   </center>

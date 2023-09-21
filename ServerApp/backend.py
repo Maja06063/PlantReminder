@@ -13,11 +13,12 @@ def initial_web_page():
 
 @app.route('/podstrona_login', methods=['GET'])
 def redirect_to_plants_page():
-    
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
-    rows = cursor.fetchall()
-
+    try:
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
+        rows = cursor.fetchall()
+    except(TypeError):
+        return "<script>location.href = '/';</script>"
     if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
         return generate_plants_page(request.cookies.get("login"), connection)
 

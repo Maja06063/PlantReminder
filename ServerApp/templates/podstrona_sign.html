@@ -20,16 +20,16 @@
         <form method="post">
           <input type="text" name="login" placeholder="Login"><br><br>
           <input type="text" name="email" placeholder="E-mail"><br><br>
-          <input type="password" name="password" placeholder="Password"><br><br>
+          <input type="password" name="password" placeholder="Hasło"><br><br>
           
           <div class="button-container">
-            <button class="signup-button" type="submit" formaction="/register">Create account</button>
+            <button class="signup-button" type="submit" formaction="/register">Stwórz konto</button>
           </div>
         </form>
-          <button class="return-button" onclick="goBack()">Cofnij</button>
+        <button class="return-button" onclick="go_to_main_page()">Cofnij</button>
         <script>
-          function goBack() {
-            window.history.back();
+          function go_to_main_page() {
+            window.location.href="/";
           }
         </script>
     </center>

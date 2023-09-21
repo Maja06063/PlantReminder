@@ -41,6 +41,11 @@
   padding: 12px; /* Zwiększenie wewnętrznego odstępu */
   font-size: 16px; /* Zwiększenie rozmiaru czcionki */
 }
+.button-container{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
 .center-container .signup-button:hover{
   background-color: #9e982dc0;
 }
