@@ -36,6 +36,9 @@ def redirect_to_my_account_page():
 
     return "<script>location.href = '/';</script>"
 
+@app.route('/calendar', methods=['GET'])
+def redirect_to_calendar_page():
+    return render_template("calendar.html")
 
 @app.route('/podstrona_sign', methods=['GET','POST'])
 def redirect_to_sign_page():
