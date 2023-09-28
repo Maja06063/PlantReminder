@@ -21,12 +21,21 @@
       </div>
       <div class="center-container" id="plant_cards">
         {{ plants_cards|safe }}
+        <div class="card">
+          <center class="add_plant_card">
+              <h2 class="no-bold-header">Dodaj roślinę</h2>
+              <button id="add_plant_button"class="add_plant_button" onclick="redirect_to_add_plant()">+</button>
+          </center>
+      </div>
       </div>
     </div>
     <div class="return-button-container">
       <button class="return-button" onclick="log_out()">Wyloguj mnie</button>
     </div>
     <script>
+      function redirect_to_add_plant(){
+        window.location.href="/plant_card";
+      }
       function log_out() {
         // Ustaw czas wygaśnięcia ciasteczka na datę w przeszłości (np. 1 stycznia 1970 roku)
         const allCookies = document.cookie.split(';'); // Podziel ciasteczka po średniku

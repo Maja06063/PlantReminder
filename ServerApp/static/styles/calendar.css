@@ -1,3 +1,74 @@
-#calendar{
+.calendar{
   background-color: rgb(249, 245, 218);
+  height: 800px;
+  width: 800px;
+  text-align: center;
+}
+
+.calendar td{
+  border: 1px solid #FFFFFF;
+  justify-content: center; /* Wyśrodkowanie w poziomie */
+}
+.calendar thead{
+  height: 150px;
+}
+.calendar tbody{
+  margin-top: 150px;
+}
+.center-container{
+  display: flex;
+  justify-content: center; /* Wyśrodkowanie w poziomie */
+  align-items: center; /* Wyśrodkowanie w pionie */
+}
+
+.other_days_icon{
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+  margin: 0 1px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 35px;
+  user-select: none;
+  border-radius: 50%;
+}
+
+.other_days_icon:hover {
+  background-color: #87878746;
+}
+
+.today_icon {
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+  margin: 0 1px;
+  cursor: pointer;
+  background-color: #8fa7255b;
+  text-align: center;
+  line-height: 35px;
+  user-select: none;
+  border-radius: 50%;
+}
+.legend{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color:beige;
+  height: 100px;
+  width: 200px;
+  padding: 5px;
+  margin-left: 20px;
+  margin-bottom: 650px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  width: 150px;
+}
+
+.legend-item span {
+  width: 20px; /* Szerokość kolorowego kwadratu */
+  height: 20px; /* Wysokość kolorowego kwadratu */
+  margin-right: 8px;
 }

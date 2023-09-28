@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PlantReminder | MajaSkibinska</title
+  <title>PlantReminder | MajaSkibinska</title>
   <meta charset="utf-8">
   <!-- Dodaj link do zewnętrznej czcionki (jeśli dostępna online) -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
       <div class="sidebar">
         <h1 class="no-bold-header">PlantReminder</h1>
         <a href="/my_account">Moje konto</a>
-        <a href="#">Moje rośliny</a>
+        <a href="/podstrona_login">Moje rośliny</a>
         <a href="/calendar">Kalendarz</a>
         <img src="{{ url_for('static', filename='img/areka.png') }}">
         <div class="circle"></div>
@@ -24,20 +24,39 @@
       <div class="center-container">
         <table class="calendar" id="calendar">
           <thead>
-          <tr>
-          <td><button id="prev" onclick="prev_month()">&larr;</button></td>
-          <td colspan="5" id="calendar_top"></td>
-          <td><button id="next" onclick="next_month()">&rarr;</button></td>
-          <tr><td>pon</td><td>wto</td><td>środ</td><td>czw</td><td>piąt</td><td>sob</td><td>niedz</td></tr></thead>
+            <tr>
+              <td><button id="prev" onclick="prev_month()">&larr;</button></td>
+              <td colspan="5" id="calendar_top"></td>
+              <td><button id="next" onclick="next_month()">&rarr;</button></td>
+            </tr>
+            <tr>
+              <td>pon</td><td>wto</td><td>środ</td><td>czw</td><td>piąt</td><td>sob</td><td>niedz</td>
+            </tr>
+          </thead>
           <tbody>
-          <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr>
-          <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr>
-          <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr>
-          <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr>
-          <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr>
-          <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr>
           </tbody>
-          </table>
+        </table>
+        <div class="legend">
+          <div class="legend-item">
+            <span style="background-color: #8fa7255b;"></span> <!-- Kolor -->
+            Dzisiejsza data
+        </div>
+        <div class="legend-item">
+            <span style="background-color: #cd94f959;"></span> <!-- Kolor -->
+            Dzisiaj wydarzenie
+        </div>
+        <div class="legend-item">
+            <span style="background-color: #cab8844d;"></span> <!-- Kolor -->
+            Wydarzenie
+        </div>
+      </div>
+
       </div>
     </div>
     <div class="return-button-container">

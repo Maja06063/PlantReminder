@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, make_response
 from podstrona_login import generate_logged_page, generate_plants_page
-from my_account import generate_my_account_page
+from my_account import generate_my_account_page, generate_calendar_page
 from dbConector import base_connect
 from users import userRegistered
 import json
@@ -38,7 +38,19 @@ def redirect_to_my_account_page():
 
 @app.route('/calendar', methods=['GET'])
 def redirect_to_calendar_page():
-    return render_template("calendar.html")
+
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
+    rows = cursor.fetchall()
+
+    if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
+        return generate_calendar_page(request.cookies.get("login"), connection)
+
+    return "<script>location.href = '/';</script>"
+
+@app.route('/plant_card', methods=['GET'])
+def redirect_to_plant_card_page():
+    return render_template("plant_card.html")
 
 @app.route('/podstrona_sign', methods=['GET','POST'])
 def redirect_to_sign_page():

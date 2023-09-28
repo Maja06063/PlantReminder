@@ -1,4 +1,5 @@
-let browsing_date = new Date();
+let browsing_date = new Date(),
+today = new Date();
 const months = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec",
               "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"];
 let table_fields = document.querySelectorAll("#calendar tbody td");
@@ -29,8 +30,13 @@ function generate_calendar(){
     let days_in_month = Math.floor(milisec_in_month / (1000 * 60 * 60 * 24));
     clear_calendar()
     document.querySelector("#calendar_top").innerHTML = months[browsing_date.getMonth()]
-    for(i=1;i<days_in_month+2;i++){
-        table_fields[i+first_day_of_week-2].innerHTML = i;
+    
+    for(i=1;i<days_in_month+2;i++) {
+        table_fields[i+first_day_of_week-2].innerHTML ="<span class=other_days_icon>"+i+"</span>";
+        if (i == today.getDate() && today.getMonth()==browsing_date.getMonth()) {
+            table_fields[i+first_day_of_week-2].innerHTML ="<span class=today_icon>"+i+"</span>";
+        }
+        
     }
 }
 generate_calendar();

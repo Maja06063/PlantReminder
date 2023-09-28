@@ -87,7 +87,8 @@ input:valid {
   }
 }
 
-.bezimg-container button {
+.bezimg-container button,
+.center-container button {
   margin-top: 7px;
   background-color: transparent;
   width: 100%; /* Szerokość ustawiona na 100% */
@@ -116,7 +117,8 @@ input:valid {
   margin-right: 10px;
 }
 
-.bezimg-container button:hover {
+.bezimg-container button:hover,
+.center-container button:hover {
   background-color: #9e982dc0;
   box-shadow: 0 0 20px #3A3A3A;
   transform: scale(1.065);

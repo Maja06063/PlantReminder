@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PlantReminder | MajaSkibinska</title>
+  <meta charset="utf-8">
+  <!-- Dodaj link do zewnętrznej czcionki (jeśli dostępna online) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/plant_card.css') }}"> <!-- Dodaj ten link -->
+
+</head>
+<body>
+  <div class="main-container">
+    <center class="center-container">
+      <h2 class="no-bold-header">Dodawanie rośliny</h2>
+      <label for="plant_name">Nazwa rośliny:</label>
+      <input type="text" id="plant_name" maxlength="20" placeholder="Nazwa rośliny"><br><br>
+      <label for="spiecies">Gatunek:</label>
+      <select id="spiecies" name="spiecies">
+        <option value="1">Róża</option>
+        <option value="2">Fiołek</option>
+        <option value="3">Tulipan</option>
+        <option value="4">Stokrotka</option>
+      </select><br><br>
+      <label for="watering_period">Okres podlewania:</label>
+      <input type="number" id="watering_period" min="1" placeholder="dni"><br><br>
+      <label for="fertiliz_perion">Okres nawożenia:</label>
+      <input type="number" id="fertiliz_perion" min="1" placeholder="dni"><br><br>
+      <label for="light">Nasłonecznienie:</label>
+      <input type="range" id="light" min="1" max="5" step="1"><br><br>
+      <label for="plant_description">Opis:</label><br>
+      <textarea id="plant_description" maxlength="100" rows="4" cols="50"></textarea><br><br>
+      <label for="last_watering">Data ostatniego podlania:</label>
+      <input type="date" id="last_watering"><br><br>
+      <label for="last_fertiliz">Data ostatniego nawiezienia:</label>
+      <input type="date" id="last_fertiliz"><br><br>
+
+      <button class="login-button" type="button" onclick="send_plant_to_backend()">Dodaj roślinę</button>
+    </center>
+    <div class="return-button-container">
+      <button class="return-button" onclick="go_to_main_page()">Cofnij</button>
+    </div>
+  </div>
+  <script>
+    function go_to_main_page() {
+      window.location.href="/podstrona_login";
+    }
+    function send_plant_to_backend() {
+      ;
+    }
+  </script>
+  <footer>
+      <p>© 2023 PlantReminder.</p>
+  </footer>
+</body>
+</html>
