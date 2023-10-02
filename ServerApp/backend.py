@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, make_response
-from podstrona_login import generate_logged_page, generate_plants_page
+from podstrona_login import generate_logged_page, generate_plants_page, generate_new_plant_form_page
 from my_account import generate_my_account_page, generate_calendar_page
 from dbConector import base_connect
 from users import userRegistered
@@ -50,7 +50,7 @@ def redirect_to_calendar_page():
 
 @app.route('/plant_card', methods=['GET'])
 def redirect_to_plant_card_page():
-    return render_template("plant_card.html")
+    return generate_new_plant_form_page(connection)
 
 @app.route('/podstrona_sign', methods=['GET','POST'])
 def redirect_to_sign_page():

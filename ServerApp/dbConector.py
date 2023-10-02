@@ -15,17 +15,3 @@ def base_connect():
     except mysql.connector.Error as e:
         print('Błąd połączenia z bazą danych:', e)
     return connection
-
-#Wypisanie danych z tabeli
-"""def write_data():
-    try:
-        cursor = connection.cursor()
-        cursor.execute('SELECT * FROM plants')
-
-        rows = cursor.fetchall()
-
-        for row in rows:
-            print(row)
-
-    except mysql.connector.Error as e:
-        print('Błąd przy wykonywaniu zapytania:', e)"""

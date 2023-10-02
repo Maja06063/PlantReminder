@@ -77,3 +77,16 @@ def generate_plants_page(login, connection) -> str:
     plants = cursor.fetchall()
 
     return render_template("podstrona_login.html", plants_cards = generate_plants_cards(plants,connection))
+
+def generate_new_plant_form_page(connection) -> str:
+
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM Species;")
+    species = cursor.fetchall()
+    print(species)
+
+    species_options = ""
+    for one_specie in species:
+        species_options += """<option value="%d">%s</option>\n""" % (one_specie[0], one_specie[1])
+
+    return render_template("plant_card.html", available_species = species_options)
