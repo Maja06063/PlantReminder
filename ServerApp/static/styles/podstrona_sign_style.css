@@ -78,3 +78,7 @@ button:active {
   box-shadow: none;
   transform: scale(0.98);
 }
+
+#register_button {
+  width: fit-content;
+}

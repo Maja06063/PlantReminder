@@ -1,6 +1,7 @@
 from flask import render_template, make_response, Response
 from plant import Plant
 from datetime import date, datetime, timedelta
+from dbConector import base_execute
 
 HTML_EMPTY_SPACE = "&nbsp;"
 
@@ -12,12 +13,10 @@ def days_to_care(last_action_date, days_to_add) -> int:
 
     return result if result > 0 else 0
 
-def generate_one_card(plant_list, connection) -> str:
+def generate_one_card(plant_list) -> str:
 
     plant = Plant(plant_list)
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM Species WHERE species_id = '" + str(plant.species_id)+ "';")
-    species = cursor.fetchall()
+    species = base_execute("SELECT * FROM Species WHERE species_id = '" + str(plant.species_id)+ "';")
     species = list(species[0])
     species_name = species[1]
 
@@ -50,40 +49,32 @@ def generate_one_card(plant_list, connection) -> str:
 
     return card
 
-def generate_plants_cards(plants,connection) -> str:
+def generate_plants_cards(plants) -> str:
 
     cards = ""
     for plant in plants:
-        cards += generate_one_card(list(plant),connection)
+        cards += generate_one_card(list(plant))
 
     return cards
 
-def generate_logged_page(args_dict, connection) -> Response:
+def generate_logged_page(args_dict) -> Response:
 
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM Plants WHERE login = '" + args_dict["login"] + "';")
-    plants = cursor.fetchall()
+    plants = base_execute("SELECT * FROM Plants WHERE login = '" + args_dict["login"] + "';")
 
-    page_str = render_template("podstrona_login.html", plants_cards = generate_plants_cards(plants,connection))
+    page_str = render_template("podstrona_login.html", plants_cards = generate_plants_cards(plants))
 
     response = make_response(page_str)
     response.set_cookie('login', args_dict["login"])
     return response
 
-def generate_plants_page(login, connection) -> str:
+def generate_plants_page(login) -> str:
+    plants = base_execute("SELECT * FROM Plants WHERE login = '" + login + "';")
 
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM Plants WHERE login = '" + login + "';")
-    plants = cursor.fetchall()
+    return render_template("podstrona_login.html", plants_cards = generate_plants_cards(plants))
 
-    return render_template("podstrona_login.html", plants_cards = generate_plants_cards(plants,connection))
+def generate_new_plant_form_page() -> str:
 
-def generate_new_plant_form_page(connection) -> str:
-
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM Species;")
-    species = cursor.fetchall()
-    print(species)
+    species = base_execute("SELECT * FROM Species;")
 
     species_options = ""
     for one_specie in species:

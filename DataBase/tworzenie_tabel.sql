@@ -7,7 +7,7 @@ DROP TABLE UserName;
 
 CREATE TABLE UserName(
     login varchar(255) NOT NULL PRIMARY KEY,
-    password int NOT NULL,
+    password varchar(32) NOT NULL,
     e_mail varchar(255) NOT NULL
 );
 
