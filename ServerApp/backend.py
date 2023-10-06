@@ -1,113 +1,143 @@
 from flask import Flask, request, render_template, make_response
-from podstrona_login import generate_logged_page, generate_plants_page, generate_new_plant_form_page
-from my_account import generate_my_account_page, generate_calendar_page
-from dbConector import base_commit, base_execute
-from users import userRegistered
-import json
-from hash import hash_password
+from my_plants import MyPlantsPageGenerator
+from my_account import AccountPagesGenerator
+from hash import Hasher
 
-app = Flask(__name__) #tworzenie nowej instancji klasy Flask
+class Backend():
 
-@app.route('/')
-def initial_web_page():
-    return render_template("index.html")
+    app = Flask(__name__) #tworzenie nowej instancji klasy Flask
+    my_plants_gen = MyPlantsPageGenerator()
+    accounts_pages_gen = AccountPagesGenerator()
 
-@app.route('/podstrona_login', methods=['GET'])
-def redirect_to_plants_page():
-    try:
-        rows = base_execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
-    except(TypeError):
-        return "<script>location.href = '/';</script>"
-    if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
-        return generate_plants_page(request.cookies.get("login"))
+    def prepare_endpoints(self):
 
-    return "<script>location.href = '/';</script>"
+        #############################################################
+        ################ STRONY STATYCZNE ###########################
+        #############################################################
 
-@app.route('/my_account', methods=['GET'])
-def redirect_to_my_account_page():
+        @self.app.route('/')
+        def index_page():
+            return render_template("index.html")
 
-    rows = base_execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
+        @self.app.route('/register_page', methods=['GET','POST'])
+        def register_page():
+            return render_template("register_page.html")
 
-    if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
-        return generate_my_account_page(request.cookies.get("login"))
+        @self.app.route('/forgot_password', methods=['GET'])
+        def forgot_password_page():
+            return render_template("forgot_password.html")
 
-    return "<script>location.href = '/';</script>"
+        #############################################################
+        ################ ENDPOINT REJESTRACJI #######################
+        #############################################################
 
-@app.route('/my_account', methods=['POST'])
-def change_password_endpoint():
+        @self.app.route('/register', methods=['POST'])
+        def register_endpoint():
+            post_data_dict = request.form.to_dict()
+            if self.accounts_pages_gen.userRegistered(post_data_dict):
+                return render_template("index.html") + """
+                    <script>document.getElementById("regist_ok").style.display = "block";</script>
+                    """
+            else:
+                return "Rejestracja nie udana"
 
-    post_data_dict = request.form.to_dict()
-    rows = base_execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
+        #############################################################
+        ################ PODSTRONA MY_ACCOUNT #######################
+        #############################################################
 
-    if len(rows) == 1: #Sprawdzamy czy znaleziono uzytkownika o podany loginie
+        @self.app.route('/my_account', methods=['GET'])
+        def my_account_endpoint():
 
-        #sprawdzamy czy actual_pass się zgadza
-        hashed_actual_password=hash_password(str(post_data_dict["actual_pass"]))
-        if str(rows[0][1])==hashed_actual_password: 
-            #sprawdzamy czy new_pass i confirm_pass są takie same
-            if post_data_dict["new_pass"]==post_data_dict["confirm_pass"]:
-                #zmieniamy hasło w bazie danych
-                hashed_new_password=hash_password(str(post_data_dict["new_pass"]))
-                if base_commit("UPDATE UserName SET password = '%s' WHERE login = '%s';" % (hashed_new_password, request.cookies.get("login"))):
-                    
-                    return generate_my_account_page(request.cookies.get("login")) + """<script>alert("Hasło zmienione")</script>"""
+            rows = self.db.execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
 
-        return generate_my_account_page(request.cookies.get("login")) + """<script>alert("Zmiana hasła nieudana!")</script>"""
+            if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
+                return self.accounts_pages_gen.generate_my_account_page(request.cookies.get("login"))
 
-    return "<script>location.href = '/';</script>"
-@app.route('/calendar', methods=['GET'])
-def redirect_to_calendar_page():
+            return "<script>location.href = '/';</script>"
 
-    rows = base_execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
+        @self.app.route('/my_account', methods=['POST'])
+        def change_password_endpoint():
 
-    if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
-        return generate_calendar_page(request.cookies.get("login"))
+            post_data_dict = request.form.to_dict()
+            rows = self.db.execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
 
-    return "<script>location.href = '/';</script>"
+            if len(rows) == 1: #Sprawdzamy czy znaleziono uzytkownika o podany loginie
 
-@app.route('/plant_card', methods=['GET'])
-def redirect_to_plant_card_page():
-    return generate_new_plant_form_page()
+                #sprawdzamy czy actual_pass się zgadza
+                hashed_actual_password = Hasher.hash_password(str(post_data_dict["actual_pass"]))
+                if str(rows[0][1])==hashed_actual_password:
+                    #sprawdzamy czy new_pass i confirm_pass są takie same
+                    if post_data_dict["new_pass"]==post_data_dict["confirm_pass"]:
+                        #zmieniamy hasło w bazie danych
+                        hashed_new_password = Hasher.hash_password(str(post_data_dict["new_pass"]))
+                        if self.db.commit("UPDATE UserName SET password = '%s' WHERE login = '%s';" % (hashed_new_password, request.cookies.get("login"))):
 
-@app.route('/podstrona_sign', methods=['GET','POST'])
-def redirect_to_sign_page():
-    return render_template("podstrona_sign.html")
+                            return self.accounts_pages_gen.generate_my_account_page(request.cookies.get("login")) + """<script>alert("Hasło zmienione")</script>"""
 
-@app.route('/register', methods=['POST'])
-def register_endpoint():
-    post_data_dict = request.form.to_dict()
-    if userRegistered(post_data_dict):
-        return render_template("index.html") + """
-            <script>var regist_ok = document.getElementById("regist_ok");
-            regist_ok.style.display = "block";</script>
-            """
-    else:
-        return "Rejestracja nie udana"
+                return self.accounts_pages_gen.generate_my_account_page(request.cookies.get("login")) + """<script>alert("Zmiana hasła nieudana!")</script>"""
 
-@app.route('/forgot_password', methods=['GET'])
-def redirect_to_forgot_password():
-    return render_template("forgot_password.html")
+            return "<script>location.href = '/';</script>"
 
-@app.route('/podstrona_login', methods=['POST'])
-def logged_page():
+        #############################################################
+        ################ PODSTRONA MY_PLANTS ########################
+        #############################################################
 
-    post_data_dict = request.form.to_dict()
-    rows = base_execute("SELECT * FROM UserName WHERE login = '" + post_data_dict["login"] + "';")
+        @self.app.route('/my_plants', methods=['GET'])
+        def my_plants_endpoint():
+            try:
+                rows = self.db.execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
+            except(TypeError):
+                return "<script>location.href = '/';</script>"
+            if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
+                return self.my_plants_gen.generate_plants_page(request.cookies.get("login"))
 
-    if len(rows) == 1: #Sprawdzamy czy znaleziono uzytkownika o podany loginie
-        hashed_password=hash_password(str(post_data_dict["password"]))
-        if str(rows[0][1])==hashed_password: #Sprawdzamy czy zgadza sie haslo
-            return generate_logged_page(post_data_dict) #funkcja zwraca gotowa strone
+            return "<script>location.href = '/';</script>"
 
-        return render_template("index.html") + """
-            <script>var pass_error = document.getElementById("pass_error");
-            pass_error.style.display = "block";</script>
-            """
+        @self.app.route('/my_plants', methods=['POST'])
+        def logging_endpoint():
 
-    return render_template("index.html") + """
-        <script>var login_error = document.getElementById("login_error");
-        login_error.style.display = "block";</script>
-        """
+            post_data_dict = request.form.to_dict()
+            rows = self.db.execute("SELECT * FROM UserName WHERE login = '" + post_data_dict["login"] + "';")
 
-if __name__ == '__main__':
-    app.run()
+            if len(rows) == 1: #Sprawdzamy czy znaleziono uzytkownika o podany loginie
+                hashed_password = Hasher.hash_password(str(post_data_dict["password"]))
+                if str(rows[0][1])==hashed_password: #Sprawdzamy czy zgadza sie haslo
+                    return self.my_plants_gen.generate_logged_page(post_data_dict) #funkcja zwraca gotowa strone
+
+                return render_template("index.html") + """
+                    <script>document.getElementById("pass_error").style.display = "block";</script>
+                    """
+
+            return render_template("index.html") + """
+                <script>document.getElementById("login_error").style.display = "block";</script>
+                """
+
+        @self.app.route('/plant_card', methods=['GET'])
+        def add_plant_endpoint():
+            return self.my_plants_gen.generate_new_plant_form_page()
+
+        #############################################################
+        ################ PODSTRONA CALENDAR #########################
+        #############################################################
+
+        @self.app.route('/calendar', methods=['GET'])
+        def redirect_to_calendar_page():
+
+            rows = self.db.execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
+
+            if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
+                return self.accounts_pages_gen.generate_calendar_page(request.cookies.get("login"))
+
+            return "<script>location.href = '/';</script>"
+
+    #############################################################
+    ################ METODY PUBLICZNE ###########################
+    #############################################################
+
+    def run(self):
+        self.app.run()
+
+    def add_database(self, db_to_add):
+        self.db = db_to_add
+        self.my_plants_gen.add_database(db_to_add)
+        self.accounts_pages_gen.add_database(db_to_add)

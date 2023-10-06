@@ -1,35 +1,40 @@
 import mysql.connector
 
-#Sprawdzenie połączenia z bazą
-def base_connect():
-    try:
-        connection = mysql.connector.connect(
-            host='localhost',
-            user='sqluser',
-            password='1234',
-            database='plantreminderdb'
-        )
-        if connection.is_connected():
-            print('Połączono z bazą danych!')
+class DbConnector():
 
-    except mysql.connector.Error as e:
-        print('Błąd połączenia z bazą danych:', e)
-    return connection
-def base_execute(sql:str)->list: # wykonanie polecenia sql w bazie danych i zwrócenie wyniku w postaci listy wierszy
-    cursor = connection.cursor()
-    cursor.execute(sql)
-    return cursor.fetchall()
+    #Sprawdzenie połączenia z bazą
+    def __init__(self) -> None:
+        
+        self.connection = None
 
-def base_commit(sql:str)->bool:
+        try:
+            self.connection = mysql.connector.connect(
+                host='localhost',
+                user='sqluser',
+                password='1234',
+                database='plantreminderdb'
+            )
+            if self.connection.is_connected():
+                print("Database connected")
 
-    cursor = connection.cursor()
-    try:
+        except mysql.connector.Error as e:
+            print("Database connection error: ", e)
+
+    # Wykonanie polecenia sql w bazie danych i zwrócenie wyniku w postaci listy wierszy
+    def execute(self, sql: str) -> list:
+
+        cursor = self.connection.cursor()
         cursor.execute(sql)
-        connection.commit()
-    except:
-        return False
+        return cursor.fetchall()
 
-    return True
+    # Wykonanie polecenia sql zmieniającego bazę danych:
+    def commit(self, sql: str) -> bool:
 
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(sql)
+            self.connection.commit()
+        except:
+            return False
 
-connection = base_connect()
+        return True

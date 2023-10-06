@@ -1,16 +1,33 @@
 from flask import render_template
-from dbConector import base_execute
+from hash import Hasher
 
-def generate_my_account_page(login) -> str:
+class AccountPagesGenerator():
 
-    users = base_execute("SELECT * FROM UserName WHERE login = '" + login + "';")
-    user = users[0]
+    def add_database(self, db_to_add):
+        self.db = db_to_add
 
-    return render_template("my_account.html", login = user[0], email = user[2])
+    def generate_my_account_page(self, login) -> str:
 
-def generate_calendar_page(login) -> str:
+        users = self.db.execute("SELECT * FROM UserName WHERE login = '%s';" % login)
+        user = users[0]
 
-    users = base_execute("SELECT * FROM UserName WHERE login = '" + login + "';")
-    user = users[0]
+        return render_template("my_account.html", login = user[0], email = user[2])
 
-    return render_template("calendar.html")
+    def generate_calendar_page(self, login) -> str:
+
+        users = self.db.execute("SELECT * FROM UserName WHERE login = '%s';" % login)
+        user = users[0]
+
+        return render_template("calendar.html")
+
+    def userRegistered(self, post_data_dict) -> bool:
+
+        hashed_password = Hasher.hash_password(post_data_dict["password"])
+        #zwraca czy udało się dodać do bazy danych (zarejestrować)
+        is_success = self.db.commit("INSERT INTO username VALUES ('%s', '%s', '%s');" %
+                                    (
+                                        post_data_dict["login"],
+                                        hashed_password, 
+                                        post_data_dict["email"]
+                                    ))        
+        return is_success

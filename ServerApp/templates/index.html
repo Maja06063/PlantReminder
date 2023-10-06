@@ -18,7 +18,7 @@
     <!-- Nagłówek bez pogrubienia -->
     <h1 class="no-bold-header">Zaloguj się</h1>
 
-    <form action="podstrona_login" class = "bezimg-container" method="post" name = "form" onsubmit="return validated()">
+    <form action="my_plants" class = "bezimg-container" method="post" name = "form" onsubmit="return validated()">
       <input type = "text" placeholder = "Login" name = "login"><br><br>
       <div id = "login_error">Wpisz poprawne hasło, aby się zalogować.</div>
       <div id = "regist_ok">Udana rejestracja, możesz się zalogować.</div>
@@ -26,8 +26,8 @@
       <div id = "pass_error">Wpisz poprawne hasło, aby się zalogować</div>
       <div class = "button-container">
         <form>
-          <button class="signup-button" type="button" onclick="window.location.href='podstrona_sign'">Zarejestruj się</button>
-          <button class="login-button" type="submit" formaction="podstrona_login">Zaloguj się</button>
+          <button class="signup-button" type="button" onclick="window.location.href='/register_page'">Zarejestruj się</button>
+          <button class="login-button" type="submit" formaction="my_plants">Zaloguj się</button>
         </form>
       </div>
       <a href="forgot_password">Zapomniałeś hasła?</a>

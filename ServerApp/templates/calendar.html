@@ -6,7 +6,7 @@
   <!-- Dodaj link do zewnętrznej czcionki (jeśli dostępna online) -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/podstrona_login_style.css') }}"> <!-- Dodaj ten link -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/my_plants_style.css') }}"> <!-- Dodaj ten link -->
   <script src="{{ url_for('static', filename='scripts/calendar.js') }}" defer></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/calendar.css') }}">
 </head>
@@ -16,7 +16,7 @@
       <div class="sidebar">
         <h1 class="no-bold-header">PlantReminder</h1>
         <a href="/my_account">Moje konto</a>
-        <a href="/podstrona_login">Moje rośliny</a>
+        <a href="/my_plants">Moje rośliny</a>
         <a href="/calendar">Kalendarz</a>
         <img src="{{ url_for('static', filename='img/areka.png') }}">
         <div class="circle"></div>
