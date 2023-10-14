@@ -28,8 +28,6 @@ class MyPlantsPageGenerator():
             plant.watering_period = species[2]
         if plant.fertilization_period == None:
             plant.fertilization_period = species[3]
-        if plant.light == None:
-            plant.light = species[4]
 
         card = """
             <div class="card">
@@ -47,7 +45,7 @@ class MyPlantsPageGenerator():
                 plant.name if plant.name != None else self.HTML_EMPTY_SPACE,
                 self.days_to_care(plant.last_watered_date, plant.watering_period),
                 self.days_to_care(plant.last_fertilized_date, plant.fertilization_period),
-                plant.light,
+                -1,
                 plant.description if plant.description != None else self.HTML_EMPTY_SPACE,
             )
 

@@ -15,8 +15,7 @@ CREATE TABLE Species(
     species_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name varchar(255) NOT NULL,
     watering_period int NOT NULL,
-    fertilization_period int NOT NULL,
-    light int NOT NULL
+    fertilization_period int NOT NULL
 );
 
 CREATE TABLE Plants(
@@ -26,7 +25,6 @@ CREATE TABLE Plants(
     plant_name varchar(20),
     watering_period int,
     fertilization_period int,
-    light int,
     plant_description varchar(100),
     last_watering_date date NOT NULL,
     last_fertilization_date date NOT NULL,

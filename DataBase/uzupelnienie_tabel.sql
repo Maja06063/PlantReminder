@@ -15,16 +15,16 @@ INSERT INTO UserName VALUES ('Mariusz23', "4297f44b13955235245b2497399d7a93", 'M
 INSERT INTO UserName VALUES ('Wiesiek78', "4297f44b13955235245b2497399d7a93", 'WieslawWysocki@o2.pl');
 INSERT INTO UserName VALUES ('KubaK', "4297f44b13955235245b2497399d7a93", 'Jakub23@wp.pl');
 
-INSERT INTO Species (name,watering_period,fertilization_period,light) VALUES ('Inny',0,0,0);
-INSERT INTO Species (name,watering_period,fertilization_period,light) VALUES ('Gerbera',4,21,3);
-INSERT INTO Species (name,watering_period,fertilization_period,light) VALUES ('Monstera',10,21,2);
-INSERT INTO Species (name,watering_period,fertilization_period,light) VALUES ('Kaktus',21,28,3);
-INSERT INTO Species (name,watering_period,fertilization_period,light) VALUES ('Wrzos',2,28,3);
-INSERT INTO Species (name,watering_period,fertilization_period,light) VALUES ('Fikus',10,21,2);
-INSERT INTO Species (name,watering_period,fertilization_period,light) VALUES ('Paproc',4,35,2);
+INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Inny',0,0);
+INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Gerbera',4,21);
+INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Monstera',10,21);
+INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Kaktus',21,28);
+INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Wrzos',2,28);
+INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Fikus',10,21);
+INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Paproc',4,35);
 
-INSERT INTO Plants (login,plant_species, plant_name,watering_period,fertilization_period,light,last_watering_date, last_fertilization_date, plant_description)
-    VALUES ('IrenkaSawicka', 3, 'Ma³a monstera', 8, 20, 3, CAST( NOW() AS Date ), CAST( NOW() AS Date ), 'Roœlina posiada przêdziorki');
+INSERT INTO Plants (login,plant_species, plant_name,watering_period,fertilization_period,last_watering_date, last_fertilization_date, plant_description)
+    VALUES ('IrenkaSawicka', 3, 'Ma³a monstera', 8, 20, CAST( NOW() AS Date ), CAST( NOW() AS Date ), 'Roœlina posiada przêdziorki');
 
 INSERT INTO Plants (login,plant_species,  plant_name, last_watering_date, last_fertilization_date, plant_description)
     VALUES ('IrenkaSawicka', 4, 'W kuchi', CAST( NOW() AS Date ), CAST( NOW() AS Date ), 'Nie przelewaæ, lubi du¿o s³oñca');
