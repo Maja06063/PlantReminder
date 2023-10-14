@@ -25,11 +25,11 @@
         <div class="container-left">
           <h1 class="h1">Zmiana hasła</h1>
           <form method="post">
-            <input type="password" name="actual_pass" placeholder="Aktualne hasło" required>
+            <input type="password" id="actual_pass" name="actual_pass" placeholder="Aktualne hasło" >
             <p class="act_pass_text">Wpisz aktualne hasło, żebyśmy wiedzieli, że to Ty.</p>
-            <input type="password" name="new_pass" placeholder="Nowe hasło" required>
+            <input type="password" id="new_pass" name="new_pass" placeholder="Nowe hasło" >
             <p class="act_pass_text">Hasło musi mieć co najmniej 8 znaków.</p>
-            <input type="password" name="confirm_pass" placeholder="Potwierdź nowe hasło" required>
+            <input type="password" id="confirm_pass" name="confirm_pass" placeholder="Potwierdź nowe hasło" >
               <button class="Confirm-button" type="submit" formaction="/my_account">Potwierdź</button>
           </form>
         </div>
@@ -55,6 +55,14 @@
         }
         document.cookie = "login" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         window.location.href="/";
+      }
+      document.querySelector("#actual_pass").addEventListener("focus",inputs_required);
+      document.querySelector("#new_pass").addEventListener("focus",inputs_required);
+      document.querySelector("#confirm_pass").addEventListener("focus",inputs_required);
+      function inputs_required(){
+        document.querySelector("#actual_pass").setAttribute('required', 'required');
+        document.querySelector("#new_pass").setAttribute('required', 'required');
+        document.querySelector("#confirm_pass").setAttribute('required', 'required');
       }
     </script>
   </div>

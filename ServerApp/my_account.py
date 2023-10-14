@@ -1,7 +1,8 @@
 from flask import render_template
 from hash import Hasher
 
-class AccountPagesGenerator():
+class AccountPagesGenerator:
+    hasher = Hasher()
 
     def add_database(self, db_to_add):
         self.db = db_to_add
@@ -22,7 +23,7 @@ class AccountPagesGenerator():
 
     def userRegistered(self, post_data_dict) -> bool:
 
-        hashed_password = Hasher.hash_password(post_data_dict["password"])
+        hashed_password = self.hasher.hash_password(post_data_dict["password"])
         #zwraca czy udało się dodać do bazy danych (zarejestrować)
         is_success = self.db.commit("INSERT INTO username VALUES ('%s', '%s', '%s');" %
                                     (

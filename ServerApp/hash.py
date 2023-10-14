@@ -2,8 +2,7 @@ import hashlib
 
 class Hasher:
 
-    @staticmethod
-    def hash_password(password):
+    def hash_password(self, password):
 
         # Tworzenie obiektu haszującego MD5
         md5 = hashlib.md5()

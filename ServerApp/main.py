@@ -6,6 +6,6 @@ db = DbConnector()
 
 if __name__ == "__main__":
 
-    backend.add_database(db)
-    backend.prepare_endpoints()
-    backend.run()
+    backend.add_database(db) # Dodaje bazę danych db do backendu.
+    backend.prepare_endpoints() # Przygotowywuje flaskowe endpointy.
+    backend.run() # Uruchomienie flaskowego serwera. Funkcja blokująca.
