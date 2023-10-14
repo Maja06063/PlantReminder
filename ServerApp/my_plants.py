@@ -1,6 +1,7 @@
 from flask import render_template, make_response, Response
 from plant import Plant
 from datetime import date, timedelta
+import json
 
 class MyPlantsPageGenerator():
 
@@ -84,3 +85,36 @@ class MyPlantsPageGenerator():
             species_options += """<option value="%d">%s</option>\n""" % (one_specie[0], one_specie[1])
 
         return render_template("plant_card.html", available_species = species_options)
+    
+    def generate_species_json(self, species_id) -> str:
+        species_info = self.db.execute("SELECT * FROM species WHERE species_id = %d;"%int(species_id))
+        print(species_info)
+        species_dict = {"watering": species_info[0][2], "fertilization": species_info[0][3]}
+        return json.dumps(species_dict)
+    
+    def plantAdded(self, login, post_data_dict) -> bool:
+
+        #zwraca czy udało się dodać do bazy danych (zarejestrować)
+        is_success = self.db.commit("""
+            INSERT INTO Plants (
+                login,
+                plant_species,
+                plant_name,
+                watering_period,
+                fertilization_period,
+                last_watering_date,
+                last_fertilization_date,
+                plant_description   
+            ) VALUES ('%s', %d, '%s', %d, %d, '%s', '%s', '%s');""" %
+            (
+                login,
+                int(post_data_dict["species"]), 
+                post_data_dict["plant_name"],
+                int(post_data_dict["watering_period"]),
+                int(post_data_dict["fertiliz_period"]),
+                post_data_dict["last_watering"],
+                post_data_dict["last_fertiliz"],
+                post_data_dict["plant_description"]
+            )
+        )       
+        return is_success

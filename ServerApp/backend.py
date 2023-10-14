@@ -135,6 +135,19 @@ class Backend():
         def add_plant_endpoint():
             return self.my_plants_gen.generate_new_plant_form_page()
 
+        @self.app.route('/get_species_data', methods=['GET'])
+        def get_species_data_endpoint(): 
+            species_id = request.args.get("species_id")
+            return self.my_plants_gen.generate_species_json(species_id)
+        
+        @self.app.route('/add_new_plant', methods=["POST"])
+        def add_new_plant_endpoint():
+            post_data_dict = request.get_json()
+            if self.my_plants_gen.plantAdded(request.cookies.get("login"), post_data_dict):
+                return make_response("", 201)
+            else:
+                return make_response("", 400)
+        
         #############################################################
         ################ PODSTRONA CALENDAR #########################
         #############################################################
