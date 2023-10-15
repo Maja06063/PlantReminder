@@ -3,12 +3,11 @@
 <head>
   <title>PlantReminder | MajaSkibinska</title>
   <meta charset="utf-8">
-  <!-- Dodaj link do zewnętrznej czcionki (jeśli dostępna online) -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/my_plants_style.css') }}"> <!-- Dodaj ten link -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/logged_style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/calendar_style.css') }}">
   <script src="{{ url_for('static', filename='scripts/calendar.js') }}" defer></script>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/calendar.css') }}">
 </head>
 <body>
   <div class="main-container">

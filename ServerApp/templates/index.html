@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pl">
 <head>
   <style>
     /* Styl dla nagłówka bez pogrubienia */
@@ -10,6 +10,7 @@
   <meta charset="utf-8">
   <title>PlantReminder | MajaSkibinska</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/index_style.css') }}">
   <!-- Dodaj link do zewnętrznej czcionki (jeśli dostępna online) -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="Roboto">
 </head>
@@ -32,7 +33,7 @@
       </div>
       <a href="forgot_password">Zapomniałeś hasła?</a>
     </form>
-    <img src="{{ url_for('static', filename='img/purple_heather.jpg') }}">
+    <img class="img_plant" src="{{ url_for('static', filename='img/purple_heather.jpg') }}">
   </center>
   <script>
     function goToSubpage() {
