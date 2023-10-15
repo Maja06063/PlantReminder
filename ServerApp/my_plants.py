@@ -90,7 +90,7 @@ class MyPlantsPageGenerator():
 
         species_options = ""
         for one_specie in species:
-            if one_specie[0]==plant.species_id:
+            if plant_id != 0 and one_specie[0] == plant.species_id:
                 species_options += """<option value="%d" selected>%s</option>\n""" % (one_specie[0], one_specie[1])
             else:
                 species_options += """<option value="%d">%s</option>\n""" % (one_specie[0], one_specie[1])

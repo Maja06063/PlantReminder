@@ -1,6 +1,6 @@
 .center-container {
-  width: 600px;
-  height: 600px;
+  width: 450px;
+  height: 650px;
   margin-left: auto;
   margin-right: auto;
   background-color: #fffee5;
@@ -9,9 +9,13 @@
   font-family: 'Roboto', sans-serif;
   box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
   margin-top: 20px;
-  background-image: url('/static/img/circle.png');
-  background-size: cover;
+  background-image: url('/static/img/circle_opac76.png');
+  background-size: 620px;
+  background-repeat: no-repeat;
+  background-position: center 15px;
+  justify-content: center;
 }
+
 
 .img_circle{
   height: 700px;
@@ -22,6 +26,8 @@
 .center-container h1 {
   font-size: 48px;
   margin-top: -1px;
+  color: #524f20;
+  padding: 5px;
 }
 
 .center-container input {
@@ -30,8 +36,8 @@
   padding: 0 16px;
   background: transparent;
   border-radius: 4px;
-  border: 1px solid #fe4567;
-  color: #44433d;
+  border: 1px solid;
+  color: #666218;
   animation: shake_541 0.14s 3;
 }
 
@@ -99,5 +105,5 @@ button:active {
 }
 
 #register_form {
-  margin-top: 150px;
+  margin-top: 170px;
 }
