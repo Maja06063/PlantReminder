@@ -161,3 +161,18 @@ body {
   display: flex;
   justify-content: right;
 }
+
+#remove_plant_button {
+  text-align: center;
+  width: 80px;
+}
+#remove_plant_button:hover{
+  background-color: rgba(236, 120, 120, 0.608);
+}
+#edit_plant_button:hover{
+  background-color: #827d2072;
+}
+#edit_plant_button{
+  text-align: center;
+  width: 80px;
+}

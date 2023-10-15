@@ -90,7 +90,9 @@
     transform: scale(0.98);
   }
   
-
+  .login-button{
+    width: 40%;
+  }
 
 
 

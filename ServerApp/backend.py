@@ -130,24 +130,41 @@ class Backend():
                 <script>document.getElementById("login_error").style.display = "block";</script>
                 """
 
-        # Po kliknięciu "dodaj roślinę":
+        # Po kliknięciu "dodaj roślinę lub edytuj roślinę":
         @self.app.route('/plant_card', methods=['GET'])
         def add_plant_endpoint():
-            return self.my_plants_gen.generate_new_plant_form_page()
-
+            plant_id = request.args.get("plant_id")
+            return self.my_plants_gen.generate_plant_form_page(int(plant_id))
+        
         @self.app.route('/get_species_data', methods=['GET'])
         def get_species_data_endpoint(): 
             species_id = request.args.get("species_id")
             return self.my_plants_gen.generate_species_json(species_id)
         
-        @self.app.route('/add_new_plant', methods=["POST"])
+        @self.app.route('/save_plant', methods=["POST"])
         def add_new_plant_endpoint():
             post_data_dict = request.get_json()
             if self.my_plants_gen.plantAdded(request.cookies.get("login"), post_data_dict):
                 return make_response("", 201)
             else:
                 return make_response("", 400)
-        
+            
+        @self.app.route('/save_plant', methods=["PUT"])
+        def edit_plant_endpoint():
+            post_data_dict = request.get_json()
+            if self.my_plants_gen.plantEdited(request.cookies.get("login"), post_data_dict):
+                return make_response("", 201)
+            else:
+                return make_response("", 400)
+            
+        @self.app.route('/remove_plant', methods=["DELETE"])
+        def remove_plant_endpoint():
+            post_data_dict = request.get_json()
+            if self.db.commit("DELETE FROM Plants WHERE plant_id = %d;" % post_data_dict["plant_id"]):
+                return make_response("", 204)
+            else:
+                return make_response("", 400)
+
         #############################################################
         ################ PODSTRONA CALENDAR #########################
         #############################################################

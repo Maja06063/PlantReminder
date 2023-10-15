@@ -14,25 +14,23 @@
     <center class="center-container">
       <h2 class="no-bold-header">Dodawanie rośliny</h2>
       <label for="plant_name">Nazwa rośliny:</label>
-      <input type="text" id="plant_name" maxlength="20" placeholder="Nazwa rośliny"><br><br>
+      <input type="text" id="plant_name" maxlength="20" placeholder="Nazwa rośliny" value="{{ plant_name }}"><br><br>
       <label for="species">Gatunek:</label>
       <select id="species" name="species" onchange="download_species_data()">
         {{ available_species|safe }}
       </select><br><br>
-      <input type="checkbox" id="default_checkbox" name="default_checkbox" onclick="click_checkbox()">
-      <label for="default_checkbox">Użyj wartości domyślnych dla podlewania i nawożenia</label>
       <label for="watering_period">Okres podlewania:</label>
-      <input type="number" id="watering_period" min="1" placeholder="dni"><br><br>
+      <input type="number" id="watering_period" min="1" placeholder="dni" value="{{ watering_period }}"><br><br>
       <label for="fertiliz_period">Okres nawożenia:</label>
-      <input type="number" id="fertiliz_period" min="1" placeholder="dni"><br><br>
+      <input type="number" id="fertiliz_period" min="1" placeholder="dni" value="{{ fertiliz_period }}"><br><br>
       <label for="plant_description">Opis:</label><br>
-      <textarea id="plant_description" maxlength="100" rows="4" cols="50"></textarea><br><br>
+      <textarea id="plant_description" maxlength="100" rows="4" cols="50" type="text">{{ plant_description }}</textarea><br><br>
       <label for="last_watering">Data ostatniego podlania:</label>
-      <input type="date" id="last_watering"><br><br>
+      <input type="date" id="last_watering" value="{{ last_watering }}"><br><br>
       <label for="last_fertiliz">Data ostatniego nawiezienia:</label>
-      <input type="date" id="last_fertiliz"><br><br>
+      <input type="date" id="last_fertiliz" value="{{ last_fertiliz }}"><br><br>
 
-      <button class="login-button" type="button" onclick="send_plant_to_backend()">Dodaj roślinę</button>
+      <button class="login-button" type="button" onclick="{{ onclick_function|safe }}">{{ button_text|safe }}</button>
     </center>
     <div class="return-button-container">
       <button class="return-button" onclick="go_to_main_page()">Cofnij</button>

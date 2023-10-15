@@ -14,8 +14,7 @@ function download_species_data() {
     document.querySelector("#fertiliz_period").value = data["fertilization"];
   });
 }
-
-function send_plant_to_backend() {
+function get_plant_data(){
   const plant_name = document.querySelector("#plant_name").value;
   const species = document.querySelector("#species").value;
   const watering_period = document.querySelector("#watering_period").value;
@@ -33,6 +32,32 @@ function send_plant_to_backend() {
     last_watering: last_watering,
     last_fertiliz: last_fertiliz
   };
+  return plant_data;
+}
+function save_edited_plant(){
+  plant_data= get_plant_data();
+  plant_data["plant_id"]=url_params.get("plant_id");
+
+  let fetch_options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(plant_data)
+  };
+
+  fetch("/save_plant", fetch_options)
+  .then(response => {
+    if (response.status == 201) {
+      alert("Zmiany zapisane");
+      window.location.href = "/my_plants";
+    }
+    else alert("Nie udało się zapisać zmian");
+  });
+}
+
+function save_new_plant() {
+  plant_data= get_plant_data();
 
   let fetch_options = {
     method: 'POST',
@@ -42,7 +67,7 @@ function send_plant_to_backend() {
     body: JSON.stringify(plant_data)
   };
 
-  fetch("/add_new_plant", fetch_options)
+  fetch("/save_plant", fetch_options)
   .then(response => {
     if (response.status == 201) {
       alert("Roślina dodana");
@@ -64,6 +89,13 @@ function click_checkbox(){
   }
 }
 
-var today = new Date().toISOString().split('T')[0];
-document.querySelector("#last_watering").value = today;
-document.querySelector("#last_fertiliz").value = today;
+const url = window.location.search;
+const url_params = new URLSearchParams (url);
+if (url_params.get("plant_id")==0)
+{
+  var today = new Date().toISOString().split('T')[0];
+  document.querySelector("#last_watering").value = today;
+  document.querySelector("#last_fertiliz").value = today;
+}
+
+download_species_data();
