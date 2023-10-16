@@ -14,9 +14,11 @@
       <label for="plant_name">Nazwa rośliny:</label>
       <input type="text" id="plant_name" maxlength="20" placeholder="Nazwa rośliny" value="{{ plant_name }}"><br><br>
       <label for="species">Gatunek:</label>
-      <select id="species" name="species" onchange="download_species_data()">
+      <div class="box">
+      <select class = "box"id="species" name="species" onchange="download_species_data()">
         {{ available_species|safe }}
-      </select><br><br>
+      </select>
+      </div><br><br>
       <label for="watering_period">Okres podlewania:</label>
       <input type="number" id="watering_period" min="1" placeholder="dni" value="{{ watering_period }}"><br><br>
       <label for="fertiliz_period">Okres nawożenia:</label>
