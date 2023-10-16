@@ -1,5 +1,7 @@
 import mysql.connector
-
+"""
+Klasa DbConnector służy się do połączenia się aplikacji serwerowej z bazą danych MySQL
+"""
 class DbConnector():
 
     #Sprawdzenie połączenia z bazą

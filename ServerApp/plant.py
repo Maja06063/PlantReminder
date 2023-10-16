@@ -1,6 +1,13 @@
-
+"""
+Klasa ta służy do przechowywania informacji o danej roślinie.
+Po wyciągnięciu z bazy danych roślina jest listą, a ta klasa pozwala na używanie
+roślin jako obiektów.
+"""
 class Plant:
-
+    """
+    Konstruktor klasy Plant. Jako argument przyjmuje on roślinę w postaci listy
+    i przekształca w obiekt.
+    """
     def __init__(self, plant_list: list):
         
         self.id = int(plant_list[0])
@@ -13,6 +20,9 @@ class Plant:
         self.last_watered_date = plant_list[7]
         self.last_fertilized_date = plant_list[8]
 
+    """
+    Metoda iterująca. Konwertuje roślinę na listę.
+    """
     def __iter__(self):
         return iter([
             self.id,

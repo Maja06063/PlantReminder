@@ -3,11 +3,22 @@ from my_plants import MyPlantsPageGenerator
 from my_account import AccountPagesGenerator
 from hash import Hasher
 
+"""
+Klasa Backend zajmuje się obsługą serwera HTTP. Posiada ona zdefiniowane
+endpointy, na które przychodzą requesty od klientów. W nich też tworzone
+są odpowiedzi dla tych klientów.
+"""
 class Backend():
 
     app = Flask(__name__) #tworzenie nowej instancji klasy Flask
+
+    # Obiekt zawierający metody do generowania stron internetowych związanych z roślinami:
     my_plants_gen = MyPlantsPageGenerator()
+
+    # Obiekt zawierający metody do generowanie stron internetowych związanych z kontem urzytkownika:
     accounts_pages_gen = AccountPagesGenerator()
+
+    # Obiekt posiający funkcję haszującą wybrane dane:
     hasher=Hasher()
 
     def prepare_endpoints(self):
@@ -74,7 +85,7 @@ class Backend():
 
             if len(rows) == 1: #Sprawdzamy czy znaleziono uzytkownika o podany loginie
 
-                #sprawdzamy czy actual_pass się zgadza 
+                #sprawdzamy czy actual_pass się zgadza
                 # (hashujemy hasło przez użytkownika i sprawdzamy czy hash z tg wprowadzonego hasła pasuje z hashem z bazy danych)
                 hashed_actual_password = self.hasher.hash_password(str(post_data_dict["actual_pass"]))
                 if str(rows[0][1])==hashed_actual_password:
@@ -135,12 +146,17 @@ class Backend():
         def add_plant_endpoint():
             plant_id = request.args.get("plant_id")
             return self.my_plants_gen.generate_plant_form_page(int(plant_id))
-        
+
+        """
+        Ten endpoint służy do pobrania istniejących gatunków z bazy danych.
+        Request ten jest odbierany automatycznie podczas ładowania podstrony.
+        """
         @self.app.route('/get_species_data', methods=['GET'])
-        def get_species_data_endpoint(): 
+        def get_species_data_endpoint():
             species_id = request.args.get("species_id")
             return self.my_plants_gen.generate_species_json(species_id)
-        
+
+        # Request ten jest wysyłany przez klienta w celu zapisania nowej rośliny.
         @self.app.route('/save_plant', methods=["POST"])
         def add_new_plant_endpoint():
             post_data_dict = request.get_json()
@@ -148,7 +164,8 @@ class Backend():
                 return make_response("", 201)
             else:
                 return make_response("", 400)
-            
+
+        # Request ten jest wysyłany przez klienta w celu zapisania edytowanej rośliny.
         @self.app.route('/save_plant', methods=["PUT"])
         def edit_plant_endpoint():
             post_data_dict = request.get_json()
@@ -156,7 +173,8 @@ class Backend():
                 return make_response("", 201)
             else:
                 return make_response("", 400)
-            
+
+        # Request ten jest wysyłany przez klienta w celu usunięcia rośliny.
         @self.app.route('/remove_plant', methods=["DELETE"])
         def remove_plant_endpoint():
             post_data_dict = request.get_json()
@@ -184,9 +202,16 @@ class Backend():
     ################ METODY PUBLICZNE ###########################
     #############################################################
 
+    """
+    Jest to metoda uruchamiająca główną pętlę programu (flask),
+    działa ona w sposób blokujący (nieskończona pętla).
+    """
     def run(self):
         self.app.run()
 
+    """
+    Metoda ta dodaje obiekt połączenia z bazą danych do backendu.
+    """
     def add_database(self, db_to_add):
         self.db = db_to_add
         self.my_plants_gen.add_database(db_to_add)
