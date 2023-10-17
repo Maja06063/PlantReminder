@@ -183,6 +183,18 @@ class Backend():
             else:
                 return make_response("", 400)
 
+
+        @self.app.route('/update_plant', methods=["PUT"])
+        def update_plant_endpoint():
+            post_data_dict = request.get_json()
+            if (post_data_dict["action"]=="water"):
+                if self.db.commit("UPDATE Plants SET last_watering_date = CAST( NOW() AS Date ) WHERE plant_id = %d;" % post_data_dict["plant_id"]):
+                    return make_response("", 201)
+            elif (post_data_dict["action"]=="fertiliz"):
+                if self.db.commit("UPDATE Plants SET last_fertilization_date = CAST( NOW() AS Date ) WHERE plant_id = %d;" % post_data_dict["plant_id"]):
+                    return make_response("", 201)
+            return make_response("", 400)
+
         #############################################################
         ################ PODSTRONA CALENDAR #########################
         #############################################################

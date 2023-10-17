@@ -41,6 +41,8 @@ class MyPlantsPageGenerator():
                     <p class="species-description">%s</p>
                     <button id="remove_plant_button" class="remove_plant_button" onclick="remove_plant(%d)">X</button>
                     <button id="edit_plant_button" onclick="redirect_to_add_plant(%d)">Edytuj</button>
+                    <button id="water_plant_button" onclick="water_plant(%d)"><img class="care_icon" src="{{ url_for('static', filename='img/watering-can.png') }}" alt="podlej"></button>
+                    <button id="fert_plant_button" onclick="fertiliz_plant(%d)">Naw</button>
                 </center>
             </div>
             """ % (
@@ -50,6 +52,8 @@ class MyPlantsPageGenerator():
                 self.days_to_care(plant.last_fertilized_date, plant.fertilization_period),
                 -1,
                 plant.description if plant.description != None else self.HTML_EMPTY_SPACE,
+                plant.id,
+                plant.id,
                 plant.id,
                 plant.id
             )

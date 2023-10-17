@@ -21,14 +21,15 @@ class DbConnector():
 
         except mysql.connector.Error as e:
             print("Database connection error: ", e)
-
+            
+    # ODCZYT Z BAZY DANYCH
     # Wykonanie polecenia sql w bazie danych i zwrócenie wyniku w postaci listy wierszy
     def execute(self, sql: str) -> list:
 
         cursor = self.connection.cursor()
         cursor.execute(sql)
         return cursor.fetchall()
-
+    #ZAPIS DO BAZYU DANYCH
     # Wykonanie polecenia sql zmieniającego bazę danych:
     def commit(self, sql: str) -> bool:
 

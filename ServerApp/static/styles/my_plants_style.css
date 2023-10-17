@@ -58,7 +58,7 @@
 
 #remove_plant_button {
   text-align: center;
-  width: 80px;
+  width: 50px;
 }
 
 #remove_plant_button:hover{
@@ -71,5 +71,5 @@
 
 #edit_plant_button{
   text-align: center;
-  width: 80px;
+  width: 50px;
 }

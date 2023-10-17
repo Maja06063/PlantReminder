@@ -36,3 +36,52 @@ function remove_plant(plant_id) {
     else alert("Nie udało się usunąć rośliny");
   });
 }
+
+function water_plant(plant_id) {
+
+  const plant_data = {plant_id: plant_id, action:"water"};
+  if (!confirm("Podlałeś roślinę?")) {
+    return;
+  }
+
+  let fetch_options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(plant_data)
+  };
+
+  fetch("/update_plant", fetch_options)
+  .then(response => {
+    if (response.status == 201) {
+      window.location.href = "/my_plants";
+    }
+    else alert("Nie udało się podlać rośliny");
+  });
+}
+
+
+function fertiliz_plant(plant_id) {
+
+  const plant_data = {plant_id: plant_id, action:"fertiliz"};
+  if (!confirm("Czy checesz nawozić roślinę?")) {
+    return;
+  }
+
+  let fetch_options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(plant_data)
+  };
+
+  fetch("/update_plant", fetch_options)
+  .then(response => {
+    if (response.status == 201) {
+      window.location.href = "/my_plants";
+    }
+    else alert("Nie udało się nawozić rośliny");
+  });
+}
