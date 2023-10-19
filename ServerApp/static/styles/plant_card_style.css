@@ -245,16 +245,17 @@ button:active {
 
 
 .box select {
-  background-color: #0563af;
-  color: white;
-  padding: 12px;
-  width: 250px;
-  border: none;
+  background-color: transparent;
+  color: #44433d;
+  width: 150px;
+  height: 30px;
+  border: 1px solid #827d20;
   font-size: 20px;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
   -webkit-appearance: button;
   appearance: button;
   outline: none;
+  font-size: 16px;
+
 }
 
 .box::before {
@@ -267,16 +268,18 @@ button:active {
   text-align: center;
   font-size: 28px;
   line-height: 45px;
-  color: rgba(255, 255, 255, 0.5);
-  background-color: rgba(255, 255, 255, 0.1);
+  color: #44433d;
+  background-color: #fffee5;
   pointer-events: none;
 }
 
 .box:hover::before {
-  color: rgba(255, 255, 255, 0.6);
-  background-color: rgba(255, 255, 255, 0.2);
+  color: #44433d;
+  background-color: #fffee5;
 }
 
 .box select option {
   padding: 30px;
+  color: #44433d;
+  background-color: #fffee5;
 }

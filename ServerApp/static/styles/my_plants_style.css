@@ -6,6 +6,9 @@
   margin: 10px 10px;
   border-radius: 30px;
 }
+#red_card{
+  background: rgb(255, 150, 150);
+}
 
 .card h2{
   margin-bottom: 10px;
@@ -18,13 +21,6 @@
   font-size: 14px;
   color: #827d20;
   font-weight: normal;
-}
-
-.card img {
-  width: 60%;
-  height: 90px;
-  display: block;
-  margin: 0 auto 20px;
 }
 
 .card span {
@@ -56,11 +52,6 @@
   font-size: 50px;
 }
 
-#remove_plant_button {
-  text-align: center;
-  width: 50px;
-}
-
 #remove_plant_button:hover{
   background-color: rgba(236, 120, 120, 0.608);
 }
@@ -69,7 +60,7 @@
   background-color: #827d2072;
 }
 
-#edit_plant_button{
-  text-align: center;
-  width: 50px;
+.care_icon {
+  width: 20px;
+  height: 20px;
 }

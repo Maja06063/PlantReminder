@@ -18,9 +18,16 @@ class MyPlantsPageGenerator():
 
         return result if result > 0 else 0
 
-    def generate_one_card(self, plant_list) -> str:
+    def generate_logged_page(self, args_dict) -> Response:
 
-        plant = Plant(plant_list)
+        page_str = self.generate_plants_page(args_dict["login"])
+
+        response = make_response(page_str)
+        response.set_cookie('login', args_dict["login"])
+        return response
+
+    def plant_to_card(self, plant: Plant) -> dict:
+
         species = self.db.execute("SELECT * FROM Species WHERE species_id = '" + str(plant.species_id)+ "';")
         species = list(species[0])
         species_name = species[1]
@@ -30,59 +37,30 @@ class MyPlantsPageGenerator():
         if plant.fertilization_period == None:
             plant.fertilization_period = species[3]
 
-        card = """
-            <div class="card">
-                <center>
-                    <h2 class="no-bold-header">%s</h2>
-                    <h3 class="Species-header">%s</h3>
-                    <span style="display: block";> Następne podlewanie:Za <strong>%d</strong> dni</span>
-                    <span style="display: block";> Następne nawożenie:Za <strong>%d</strong> dni</span>
-                    <span style="display: block";> Następne wydarzenie:Za <strong>%d</strong> dni</span>
-                    <p class="species-description">%s</p>
-                    <button id="remove_plant_button" class="remove_plant_button" onclick="remove_plant(%d)">X</button>
-                    <button id="edit_plant_button" onclick="redirect_to_add_plant(%d)">Edytuj</button>
-                    <button id="water_plant_button" onclick="water_plant(%d)"><img class="care_icon" src="{{ url_for('static', filename='img/watering-can.png') }}" alt="podlej"></button>
-                    <button id="fert_plant_button" onclick="fertiliz_plant(%d)">Naw</button>
-                </center>
-            </div>
-            """ % (
-                species_name,
-                plant.name if plant.name != None else self.HTML_EMPTY_SPACE,
-                self.days_to_care(plant.last_watered_date, plant.watering_period),
-                self.days_to_care(plant.last_fertilized_date, plant.fertilization_period),
-                -1,
-                plant.description if plant.description != None else self.HTML_EMPTY_SPACE,
-                plant.id,
-                plant.id,
-                plant.id,
-                plant.id
-            )
+        days_to_water = self.days_to_care(plant.last_watered_date, plant.watering_period)
+        days_to_fertiliz = self.days_to_care(plant.last_fertilized_date, plant.fertilization_period)
+        card = {
+            "plant_id": plant.id,
+            "species_name": species_name,
+            "plant_name": plant.name if plant.name != None else self.HTML_EMPTY_SPACE,
+            "days_to_water": days_to_water,
+            "days_to_fertiliz": days_to_fertiliz,
+            "days_to_event": -1,
+            "description": plant.description if plant.description != None else self.HTML_EMPTY_SPACE,
+            "color_id": "red_card" if days_to_water==0 or days_to_fertiliz ==0 else  ""
+        }
 
         return card
-
-    def generate_plants_cards(self, plants) -> str:
-
-        cards = ""
-        for plant in plants:
-            cards += self.generate_one_card(list(plant))
-
-        return cards
-
-    def generate_logged_page(self, args_dict) -> Response:
-
-        plants = self.db.execute("SELECT * FROM Plants WHERE login = '" + args_dict["login"] + "';")
-
-        page_str = render_template("my_plants.html", plants_cards = self.generate_plants_cards(plants))
-
-        response = make_response(page_str)
-        response.set_cookie('login', args_dict["login"])
-        return response
 
     def generate_plants_page(self, login) -> str:
 
         plants = self.db.execute("SELECT * FROM Plants WHERE login = '" + login + "';")
+        
+        plants_cards = []
+        for plant in plants:
+            plants_cards.append(self.plant_to_card(Plant(plant)))
 
-        return render_template("my_plants.html", plants_cards = self.generate_plants_cards(plants))
+        return render_template("my_plants.html", plants_cards = plants_cards)
 
     def generate_plant_form_page(self, plant_id:int) -> str:
 
