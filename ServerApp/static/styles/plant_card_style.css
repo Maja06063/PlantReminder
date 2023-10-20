@@ -185,11 +185,12 @@ button:active {
 .login-button{
   width: 40%;
 }
-
+.specie, .box {
+  display: inline-block; 
+}
 .spiecies-button {
     position: relative;
     display: block;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #species_select_button {

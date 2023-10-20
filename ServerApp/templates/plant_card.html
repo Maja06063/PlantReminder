@@ -13,7 +13,7 @@
       <h2 class="no-bold-header">Dodawanie rośliny</h2>
       <label for="plant_name">Nazwa rośliny:</label>
       <input type="text" id="plant_name" maxlength="20" placeholder="Nazwa rośliny" value="{{ plant_name }}"><br><br>
-      <label for="species">Gatunek:</label>
+      <label class="specie" for="species">Gatunek:</label>
       <div class="box">
       <select class = "box"id="species" name="species" onchange="download_species_data()">
         {{ available_species|safe }}

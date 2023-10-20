@@ -10,7 +10,7 @@
   justify-content: center; /* Wyśrodkowanie w poziomie */
 }
 .calendar thead{
-  height: 150px;
+  height: 20%;
 }
 .calendar tbody{
   margin-top: 150px;
