@@ -4,6 +4,8 @@ const months = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "L
               "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"];
 let table_fields = document.querySelectorAll("#calendar tbody td");
 
+let user_events = {};
+
 function prev_month(){
     browsing_date = new Date(browsing_date.getFullYear(), browsing_date.getMonth() - 1, 1);
     generate_calendar();
@@ -39,4 +41,23 @@ function generate_calendar(){
         
     }
 }
+//TODO 
+//funkcja do pobierania eventów z serwera
+function get_user_events(){
+    fetch("/user_events")
+    .then(response => {
+        console.log(response.json())
+        return response.json()
+    });
+    
+    return {};
+}
+
+
+
+
+
+
+
+user_events=get_user_events();
 generate_calendar();

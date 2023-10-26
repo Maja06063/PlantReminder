@@ -1,5 +1,6 @@
 from flask import render_template
 from hash import Hasher
+import json
 
 """
 Klasa, która zajmuje się generowaniem stron związanych z kontem użytkownika
@@ -42,3 +43,7 @@ class AccountPagesGenerator:
                                         post_data_dict["email"]
                                     ))        
         return is_success
+
+    def get_user_events(self, login: str) -> str:
+        events = self.db.execute("SELECT * FROM EventsOfUsers WHERE login='%s';"%login)
+        return json.dumps({"events": events})

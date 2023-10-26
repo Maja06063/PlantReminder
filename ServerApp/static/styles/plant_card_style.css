@@ -239,12 +239,6 @@ button:active {
   display: block;
 }
 
-
-
-
-
-
-
 .box select {
   background-color: transparent;
   color: #44433d;
@@ -259,28 +253,12 @@ button:active {
 
 }
 
-.box::before {
-  content: "\f13a";
-  font-family: FontAwesome;
-  top: 0;
-  right: 0;
-  width: 20%;
-  height: 100%;
-  text-align: center;
-  font-size: 28px;
-  line-height: 45px;
-  color: #44433d;
-  background-color: #fffee5;
-  pointer-events: none;
-}
-
-.box:hover::before {
-  color: #44433d;
-  background-color: #fffee5;
-}
-
 .box select option {
   padding: 30px;
-  color: #44433d;
+  color: #3d4244;
   background-color: #fffee5;
+}
+
+.box select option:hover{
+  background-color: rgba(135, 130, 36, 0.549);
 }

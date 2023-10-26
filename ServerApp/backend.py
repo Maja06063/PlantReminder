@@ -210,6 +210,19 @@ class Backend():
 
             return "<script>location.href = '/';</script>"
 
+
+        @self.app.route('/user_events', methods=['GET'])
+        def user_events_endpoint():
+            try:
+                # Po wykonaniu poniższej linii rows zawiera listę użytkowników o loginie odczytanym z ciasteczka "login":
+                rows = self.db.execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
+            except(TypeError):
+                #jak napotka ten error, to wraca do strony do logowania
+                return make_response("", 403)
+            if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
+                return self.accounts_pages_gen.get_user_events(request.cookies.get("login"))
+
+            return make_response("", 403)
     #############################################################
     ################ METODY PUBLICZNE ###########################
     #############################################################
