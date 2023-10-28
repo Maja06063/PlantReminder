@@ -30,34 +30,63 @@ function generate_calendar(){
     let milisec_in_month=Math.abs(last_date_of_month - first_date_of_month);
     // Obliczanie liczby dni
     let days_in_month = Math.floor(milisec_in_month / (1000 * 60 * 60 * 24));
-    clear_calendar()
+    clear_calendar();
+
     document.querySelector("#calendar_top").innerHTML = months[browsing_date.getMonth()]
-    
+
+    browsing_date_events = [];
+    for (const i in user_events) {
+        event_date = new Date(user_events[i][3]);
+        if(event_date.getFullYear()==browsing_date.getFullYear()){
+            if(event_date.getMonth()==browsing_date.getMonth()){
+                browsing_date_events.push(user_events[i]);
+            }
+        }
+    }
+
     for(i=1;i<days_in_month+2;i++) {
         table_fields[i+first_day_of_week-2].innerHTML ="<span class=other_days_icon>"+i+"</span>";
         if (i == today.getDate() && today.getMonth()==browsing_date.getMonth()) {
             table_fields[i+first_day_of_week-2].innerHTML ="<span class=today_icon>"+i+"</span>";
         }
-        
+        for(const j in browsing_date_events){
+            event_date = new Date(browsing_date_events[j][3]);
+            if(event_date.getDate()==i){
+                if (i == today.getDate() && today.getMonth()==browsing_date.getMonth()){
+
+                    table_fields[i+first_day_of_week-2].innerHTML ="<span class=event_today_icon>"+i+"</span>";
+                }
+                else{
+                    table_fields[i+first_day_of_week-2].innerHTML = make_tooltip_for_day(i, browsing_date_events[j], "event_icon");
+                }
+            }
+        }
     }
 }
 //TODO 
 //funkcja do pobierania eventów z serwera
-function get_user_events(){
-    fetch("/user_events")
-    .then(response => {
-        console.log(response.json())
-        return response.json()
-    });
-    
-    return {};
+async function get_user_events() {
+
+    const response = await fetch("/user_events");
+    user_events = await response.json();
 }
 
+function make_tooltip_for_day(day_number, event, css_class) {
 
+    let tooltiptext = "";
+    let needed_indexes = [1, 2, 4, 5];
+    for (const i in needed_indexes) {
+        if (event[needed_indexes[i]]) tooltiptext += `${event[needed_indexes[i]]}<br>`;
+    }
 
+    tooltip_string = `
+        <div class='tooltip'>
+            <span class=${css_class}>${day_number}</span>
+                <span class="tooltiptext">${tooltiptext}</span>
+        </div>`
 
+    return tooltip_string;
+}
 
-
-
-user_events=get_user_events();
-generate_calendar();
+get_user_events();
+setTimeout(generate_calendar, 100);

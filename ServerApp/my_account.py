@@ -46,4 +46,10 @@ class AccountPagesGenerator:
 
     def get_user_events(self, login: str) -> str:
         events = self.db.execute("SELECT * FROM EventsOfUsers WHERE login='%s';"%login)
-        return json.dumps({"events": events})
+        events_list=[]
+        for event in events:
+            event=list(event)
+            event[3]=str(event[3])
+            events_list.append(event)
+
+        return json.dumps(events_list)

@@ -31,11 +31,11 @@ INSERT INTO Plants (login,plant_species,  plant_name, last_watering_date, last_f
 
 INSERT INTO Plants (login, plant_species, last_watering_date, last_fertilization_date) VALUES ('IrenkaSawicka', 5, CAST( NOW() AS Date ), CAST( NOW() AS Date ));
 INSERT INTO Plants (login, plant_species, last_watering_date, last_fertilization_date) VALUES ('Mariusz23', 1, CAST( NOW() AS Date ), CAST( NOW() AS Date ));
-INSERT INTO Plants (login, plant_species,  plant_name, last_watering_date, last_fertilization_date) VALUES ('Mariusz23', 4, 'Juï¿½ nieï¿½ywa', CAST( NOW() AS Date ), CAST( NOW() AS Date ));
+INSERT INTO Plants (login, plant_species,  plant_name, last_watering_date, last_fertilization_date) VALUES ('Mariusz23', 4, 'Ju¿ nie¿ywa', CAST( NOW() AS Date ), CAST( NOW() AS Date ));
 INSERT INTO Plants (login, plant_species, last_watering_date, last_fertilization_date) VALUES ('Wiesiek78', 5, CAST( NOW() AS Date ), CAST( NOW() AS Date ));
 INSERT INTO Plants (login, plant_species, last_watering_date, last_fertilization_date) VALUES ('Wiesiek78', 2, CAST( NOW() AS Date ), CAST( NOW() AS Date ));
 INSERT INTO Plants (login, plant_species, last_watering_date, last_fertilization_date) VALUES ('Wiesiek78', 6, CAST( NOW() AS Date ), CAST( NOW() AS Date ));
 INSERT INTO Plants (login, plant_species, fertilization_period, last_watering_date, last_fertilization_date) VALUES ('KubaK', 5, 15, CAST( NOW() AS Date ), CAST( NOW() AS Date ));
 
-INSERT INTO SpecialEvent (plant_id, event_name, event_description, event_date) VALUES (8, 'Opryskanie roï¿½liny ','Roœlina ma przêdziorki', '2023-09-01');
+INSERT INTO SpecialEvent (plant_id, event_name, event_description, event_date) VALUES (8, 'Opryskanie roœliny ','Roœlina ma przêdziorki', '2023-09-01');
 INSERT INTO SpecialEvent (plant_id, event_name, event_date) VALUES (7, 'Przesadzanie', '2023-09-03');
