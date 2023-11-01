@@ -53,3 +53,19 @@ class AccountPagesGenerator:
             events_list.append(event)
 
         return json.dumps(events_list)
+    
+    def generate_event_form_page(self, event_id: int, date: str):
+
+        if event_id == 0:
+            return render_template(
+                "event_form.html",
+                onclick_function="save_new_event()",
+                button_text = "Dodaj wydarzenie"
+                )
+        
+        
+        return render_template(
+            "event_form.html",
+            onclick_function="save_edited_event()",
+            button_text = "Edytuj wydarzenie",
+            )

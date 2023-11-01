@@ -45,20 +45,25 @@ function generate_calendar(){
     }
 
     for(i=1;i<days_in_month+2;i++) {
-        table_fields[i+first_day_of_week-2].innerHTML ="<span class=other_days_icon>"+i+"</span>";
+        table_fields[i+first_day_of_week-2].innerHTML = make_day_without_tooltip(i, "other_days_icon", browsing_date);
         if (i == today.getDate() && today.getMonth()==browsing_date.getMonth()) {
-            table_fields[i+first_day_of_week-2].innerHTML ="<span class=today_icon>"+i+"</span>";
+            table_fields[i+first_day_of_week-2].innerHTML = make_day_without_tooltip(i, "today_icon", browsing_date);
         }
+
+        let that_day_events=[];
         for(const j in browsing_date_events){
             event_date = new Date(browsing_date_events[j][3]);
-            if(event_date.getDate()==i){
-                if (i == today.getDate() && today.getMonth()==browsing_date.getMonth()){
+            if(event_date.getDate()==i) {
+                that_day_events.push(browsing_date_events[j]);
+            }
+        }
+        if (that_day_events.length) {
+            if (i == today.getDate() && today.getMonth()==browsing_date.getMonth()){
 
-                    table_fields[i+first_day_of_week-2].innerHTML ="<span class=event_today_icon>"+i+"</span>";
-                }
-                else{
-                    table_fields[i+first_day_of_week-2].innerHTML = make_tooltip_for_day(i, browsing_date_events[j], "event_icon");
-                }
+                table_fields[i+first_day_of_week-2].innerHTML = make_tooltip_for_day(i, that_day_events, "event_today_icon");
+            }
+            else {
+                table_fields[i+first_day_of_week-2].innerHTML = make_tooltip_for_day(i, that_day_events, "event_icon");
             }
         }
     }
@@ -71,22 +76,67 @@ async function get_user_events() {
     user_events = await response.json();
 }
 
-function make_tooltip_for_day(day_number, event, css_class) {
+function make_day_without_tooltip(day_number, css_class) {
 
-    let tooltiptext = "";
-    let needed_indexes = [1, 2, 4, 5];
-    for (const i in needed_indexes) {
-        if (event[needed_indexes[i]]) tooltiptext += `${event[needed_indexes[i]]}<br>`;
+    day_content = `<span class=${css_class} onclick="redirect_to_add_event(0, ${day_number})">${day_number}</span>`;
+    return day_content;
+}
+
+function make_tooltip_for_day(day_number, events, css_class) {
+
+    let tooltiptext = "<hr>";
+    const needed_indexes = [1, 2, 4, 5];
+    for(const j in events) {
+    
+        for (const i in needed_indexes) {
+            if (events[j][needed_indexes[i]]) tooltiptext += `${events[j][needed_indexes[i]]}<br>`;
+        }
+        tooltiptext += `<button id="edit_plant_button" onclick="redirect_to_add_event(${events[j][0]}, 0)"><img class="care_icon" src="/static/img/pencil.png" alt="Edytuj"></button>
+            <button id="remove_plant_button" onclick="remove_event(${events[j][0]})"><img class="care_icon" src="/static/img/false.png" alt="X"></button>`;
+        tooltiptext += "<hr>";
     }
 
     tooltip_string = `
         <div class='tooltip'>
-            <span class=${css_class}>${day_number}</span>
+            <span class=${css_class} onclick="redirect_to_add_event(0, ${day_number})">${day_number}</span>
                 <span class="tooltiptext">${tooltiptext}</span>
         </div>`
 
     return tooltip_string;
 }
+
+function remove_event(special_event_id) {
+
+    const event_data = {special_event_id: special_event_id};
+    if (!confirm("Czy na pewno usunąć wydarzenie?")) {
+      return;
+    }
+  
+    let fetch_options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(event_data)
+    };
+  
+    fetch("/remove_event", fetch_options)
+    .then(response => {
+      if (response.status == 204) {
+        window.location.href = "/calendar";
+      }
+      else alert("Nie udało się usunąć wydarzenia");
+    });
+}
+
+function redirect_to_add_event(event_id, date) {
+    window.location.href="/event_form?event_id=" + event_id + "&date=" + date;
+}
+
+
+
+
+
 
 get_user_events();
 setTimeout(generate_calendar, 100);

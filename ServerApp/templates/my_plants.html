@@ -30,7 +30,7 @@
             <span style="display: block";> Następne wydarzenie:Za <strong>{{ plant_card["days_to_event"] }}</strong> dni</span>
             <p class="species-description">{{ plant_card["description"] }}</p>
           <div class="edit_plant">
-            <button id="remove_plant_button" class="remove_plant_button" onclick="remove_plant(parseInt('{{ plant_card.plant_id }}'))"><img class="care_icon" src="{{ url_for('static', filename='img/false.png') }}" alt="X"></button>
+            <button id="remove_plant_button" onclick="remove_plant(parseInt('{{ plant_card.plant_id }}'))"><img class="care_icon" src="{{ url_for('static', filename='img/false.png') }}" alt="X"></button>
             <button id="edit_plant_button" onclick="redirect_to_add_plant(parseInt('{{ plant_card.plant_id }}'))"><img class="care_icon" src="{{ url_for('static', filename='img/pencil.png') }}" alt="edytuj"></button>
           </div>
           <div class="care_plant">

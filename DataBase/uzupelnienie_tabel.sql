@@ -39,3 +39,5 @@ INSERT INTO Plants (login, plant_species, fertilization_period, last_watering_da
 
 INSERT INTO SpecialEvent (plant_id, event_name, event_description, event_date) VALUES (8, 'Opryskanie roœliny ','Roœlina ma przêdziorki', '2023-09-01');
 INSERT INTO SpecialEvent (plant_id, event_name, event_date) VALUES (7, 'Przesadzanie', '2023-09-03');
+INSERT INTO SpecialEvent (plant_id, event_name, event_date) VALUES (8, 'Kupno nowej doniczki', '2023-09-03');
+INSERT INTO SpecialEvent (plant_id, event_name, event_date) VALUES (8, 'Opryskanie roœliny',  CAST( NOW() AS Date ));

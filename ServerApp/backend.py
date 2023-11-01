@@ -147,32 +147,28 @@ class Backend():
             plant_id = request.args.get("plant_id")
             return self.my_plants_gen.generate_plant_form_page(int(plant_id))
 
-        """
-        Ten endpoint służy do pobrania istniejących gatunków z bazy danych.
-        Request ten jest odbierany automatycznie podczas ładowania podstrony.
-        """
+        # Ten endpoint służy do pobrania istniejących gatunków z bazy danych.
+        # Request ten jest odbierany automatycznie podczas ładowania podstrony.
         @self.app.route('/get_species_data', methods=['GET'])
         def get_species_data_endpoint():
             species_id = request.args.get("species_id")
             return self.my_plants_gen.generate_species_json(species_id)
 
-        # Request ten jest wysyłany przez klienta w celu zapisania nowej rośliny.
-        @self.app.route('/save_plant', methods=["POST"])
-        def add_new_plant_endpoint():
+        # Request ten jest wysyłany przez klienta w celu zapisania nowej lub edytowanej rośliny.
+        @self.app.route('/save_plant', methods=["POST", "PUT"])
+        def add_or_edit_plant_endpoint():
             post_data_dict = request.get_json()
-            if self.my_plants_gen.plantAdded(request.cookies.get("login"), post_data_dict):
-                return make_response("", 201)
-            else:
-                return make_response("", 400)
+            login_cookie = request.cookies.get("login")
+            
+            if request.method == "POST":
+                if self.my_plants_gen.plantAdded(login_cookie, post_data_dict):
+                    return make_response("", 201)
 
-        # Request ten jest wysyłany przez klienta w celu zapisania edytowanej rośliny.
-        @self.app.route('/save_plant', methods=["PUT"])
-        def edit_plant_endpoint():
-            post_data_dict = request.get_json()
-            if self.my_plants_gen.plantEdited(request.cookies.get("login"), post_data_dict):
-                return make_response("", 201)
-            else:
-                return make_response("", 400)
+            elif request.method == "PUT":
+                if self.my_plants_gen.plantEdited(login_cookie, post_data_dict):
+                    return make_response("", 201)
+
+            return make_response("", 400)
 
         # Request ten jest wysyłany przez klienta w celu usunięcia rośliny.
         @self.app.route('/remove_plant', methods=["DELETE"])
@@ -223,6 +219,42 @@ class Backend():
                 return self.accounts_pages_gen.get_user_events(request.cookies.get("login"))
 
             return make_response("", 403)
+        
+        # Request ten jest wysyłany przez klienta w celu usunięcia rośliny.
+        @self.app.route('/remove_event', methods=["DELETE"])
+        def remove_event_endpoint():
+            post_data_dict = request.get_json()
+            if self.db.commit("DELETE FROM SpecialEvent WHERE special_event_id = %d;" % post_data_dict["special_event_id"]):
+                return make_response("", 204)
+            else:
+                return make_response("", 400)
+
+        # Po kliknięciu dodaj lub edytuj wydarzenie:
+        @self.app.route('/event_form', methods=['GET'])
+        def add_event_endpoint():
+            event_id = request.args.get("event_id")
+            date = request.args.get("date")
+            # TODO zmienić to dla wydarzenia zamiast rośliny:
+            return self.accounts_pages_gen.generate_event_form_page(int(event_id), date)
+
+        # Request ten jest wysyłany przez klienta w celu zapisania nowego lub edytowanego wydarzenia.
+        @self.app.route('/save_event', methods=["POST", "PUT"])
+        def add_or_edit_event_endpoint():
+            post_data_dict = request.get_json()
+            login_cookie = request.cookies.get("login")
+            
+            if request.method == "POST":
+                # TODO dla eventu zamiast rośliny:
+                if self.my_plants_gen.plantAdded(login_cookie, post_data_dict):
+                    return make_response("", 201)
+
+            elif request.method == "PUT":
+                # TODO dla eventu zamiast rośliny:
+                if self.my_plants_gen.plantEdited(login_cookie, post_data_dict):
+                    return make_response("", 201)
+
+            return make_response("", 400)
+
     #############################################################
     ################ METODY PUBLICZNE ###########################
     #############################################################

@@ -73,16 +73,38 @@
   user-select: none;
   border-radius: 50%;
 }
+
+.legend_bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  margin-left: 20px;
+}
+
 .legend{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color:beige;
+  height: 120px;
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 50px;
+  border: 1px solid #3a3a3a60;
+}
+.legend2{
+  justify-content: center;
+  text-align: center;
   align-items: center;
   display: flex;
   flex-direction: column;
   background-color:beige;
   height: 100px;
-  width: 200px;
+  width: 100%;
   padding: 5px;
-  margin-left: 20px;
-  margin-bottom: 650px;
+  border: 1px solid #3a3a3a60;
 }
 .legend-item {
   display: flex;
@@ -110,13 +132,12 @@
 .tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
 }
 
 /* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
-  background-color: #827d20;
+  background-color: rgb(205, 185, 153);
   width: max-content;
   color: #fff;
   text-align: center;

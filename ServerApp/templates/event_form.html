@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PlantReminder | MajaSkibinska</title>
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/plant_card_style.css') }}">
+</head>
+<body>
+  <div class="main-container">
+    <center class="center-container">
+      <h2 class="no-bold-header">Dodawanie wydarzenia</h2>
+      <label for="plant_name">Nazwa wydarzenia:</label>
+      <input type="text" id="plant_name" maxlength="20" placeholder="Nazwa rośliny" value="{{ plant_name }}"><br><br>
+      <label class="specie" for="species">Gatunek:</label>
+      <div class="box">
+      <select class = "box1"id="species" name="species" onchange="download_species_data()">
+        {{ available_species|safe }}
+      </select>
+      </div><br><br>
+      <label for="event_description">Opis:</label><br>
+      <textarea id="event_description" maxlength="100" rows="4" cols="50" type="text">{{ plant_description }}</textarea><br><br>
+
+
+      <button class="login-button" type="button" onclick="{{ onclick_function|safe }}">{{ button_text|safe }}</button>
+    </center>
+    <div class="return-button-container">
+      <button class="return-button" onclick="go_to_main_page()">Cofnij</button>
+    </div>
+  </div>
+  <script src="{{ url_for('static', filename='scripts/plant_card.js') }}"></script>
+  <div class="footer">
+      <p>© 2023 PlantReminder.</p>
+  </div>
+</body>
+</html>

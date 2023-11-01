@@ -1,5 +1,5 @@
 function redirect_to_add_plant(plant_id) {
-  window.location.href="/plant_card?plant_id="+plant_id;
+  window.location.href="/plant_card?plant_id=" + plant_id;
 }
 
 function log_out() {
