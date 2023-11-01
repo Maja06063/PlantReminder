@@ -233,7 +233,11 @@ class Backend():
         @self.app.route('/event_form', methods=['GET'])
         def add_event_endpoint():
             event_id = request.args.get("event_id")
-            date = request.args.get("date")
+            day = request.args.get("day")
+            month = request.args.get("month")
+            year = request.args.get("year")
+            date=[day,month,year]
+
             # TODO zmienić to dla wydarzenia zamiast rośliny:
             return self.accounts_pages_gen.generate_event_form_page(int(event_id), date)
 

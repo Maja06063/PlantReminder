@@ -13,7 +13,7 @@
       <h2 class="no-bold-header">Dodawanie wydarzenia</h2>
       <label for="plant_name">Nazwa wydarzenia:</label>
       <input type="text" id="plant_name" maxlength="20" placeholder="Nazwa rośliny" value="{{ plant_name }}"><br><br>
-      <label class="specie" for="species">Gatunek:</label>
+      <label class="specie" for="species">Gatunek/Nazwa rośliny:</label>
       <div class="box">
       <select class = "box1"id="species" name="species" onchange="download_species_data()">
         {{ available_species|safe }}
@@ -21,7 +21,7 @@
       </div><br><br>
       <label for="event_description">Opis:</label><br>
       <textarea id="event_description" maxlength="100" rows="4" cols="50" type="text">{{ plant_description }}</textarea><br><br>
-
+      <p>{{date}}</p>
 
       <button class="login-button" type="button" onclick="{{ onclick_function|safe }}">{{ button_text|safe }}</button>
     </center>

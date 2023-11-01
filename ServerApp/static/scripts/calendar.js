@@ -45,9 +45,9 @@ function generate_calendar(){
     }
 
     for(i=1;i<days_in_month+2;i++) {
-        table_fields[i+first_day_of_week-2].innerHTML = make_day_without_tooltip(i, "other_days_icon", browsing_date);
+        table_fields[i+first_day_of_week-2].innerHTML = make_day_without_tooltip("other_days_icon", i, browsing_date.getMonth(), browsing_date.getFullYear());
         if (i == today.getDate() && today.getMonth()==browsing_date.getMonth()) {
-            table_fields[i+first_day_of_week-2].innerHTML = make_day_without_tooltip(i, "today_icon", browsing_date);
+            table_fields[i+first_day_of_week-2].innerHTML = make_day_without_tooltip("today_icon", i, browsing_date.getMonth(), browsing_date.getFullYear());
         }
 
         let that_day_events=[];
@@ -60,10 +60,10 @@ function generate_calendar(){
         if (that_day_events.length) {
             if (i == today.getDate() && today.getMonth()==browsing_date.getMonth()){
 
-                table_fields[i+first_day_of_week-2].innerHTML = make_tooltip_for_day(i, that_day_events, "event_today_icon");
+                table_fields[i+first_day_of_week-2].innerHTML = make_tooltip_for_day(that_day_events, "event_today_icon", i, browsing_date.getMonth(), browsing_date.getFullYear());
             }
             else {
-                table_fields[i+first_day_of_week-2].innerHTML = make_tooltip_for_day(i, that_day_events, "event_icon");
+                table_fields[i+first_day_of_week-2].innerHTML = make_tooltip_for_day(that_day_events, "event_icon", i, browsing_date.getMonth(), browsing_date.getFullYear());
             }
         }
     }
@@ -76,13 +76,14 @@ async function get_user_events() {
     user_events = await response.json();
 }
 
-function make_day_without_tooltip(day_number, css_class) {
+function make_day_without_tooltip(css_class, day_number, month_number, year_number) {
 
-    day_content = `<span class=${css_class} onclick="redirect_to_add_event(0, ${day_number})">${day_number}</span>`;
+    console.log(day_number)
+    day_content = `<span class=${css_class} onclick="redirect_to_add_event(0, ${day_number},${month_number},${year_number})">${day_number}</span>`;
     return day_content;
 }
 
-function make_tooltip_for_day(day_number, events, css_class) {
+function make_tooltip_for_day(events, css_class, day_number, month_number, year_number) {
 
     let tooltiptext = "<hr>";
     const needed_indexes = [1, 2, 4, 5];
@@ -98,7 +99,7 @@ function make_tooltip_for_day(day_number, events, css_class) {
 
     tooltip_string = `
         <div class='tooltip'>
-            <span class=${css_class} onclick="redirect_to_add_event(0, ${day_number})">${day_number}</span>
+            <span class=${css_class} onclick="redirect_to_add_event(0, ${day_number},${month_number},${year_number})">${day_number}</span>
                 <span class="tooltiptext">${tooltiptext}</span>
         </div>`
 
@@ -129,8 +130,10 @@ function remove_event(special_event_id) {
     });
 }
 
-function redirect_to_add_event(event_id, date) {
-    window.location.href="/event_form?event_id=" + event_id + "&date=" + date;
+//wybieranie daty z kalendarza
+function redirect_to_add_event(event_id, day_number, month_number, year_number) {
+    //document.cookie="date = "
+    window.location.href=`/event_form?event_id=${event_id}&day=${day_number}&month=${month_number+1}&year=${year_number}`;
 }
 
 

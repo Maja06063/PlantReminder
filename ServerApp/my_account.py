@@ -56,9 +56,11 @@ class AccountPagesGenerator:
     
     def generate_event_form_page(self, event_id: int, date: str):
 
+        date = "%4d-%2d-%2d"%(int(date[0]),int(date[1]), int(date[2]))
         if event_id == 0:
             return render_template(
                 "event_form.html",
+                date = date,
                 onclick_function="save_new_event()",
                 button_text = "Dodaj wydarzenie"
                 )
