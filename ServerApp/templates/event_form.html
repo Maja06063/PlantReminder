@@ -6,6 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/plant_card_style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/event_form_style.css') }}">
 </head>
 <body>
   <div class="main-container">
@@ -21,7 +22,11 @@
       </div><br><br>
       <label for="event_description">Opis:</label><br>
       <textarea id="event_description" maxlength="100" rows="4" cols="50" type="text">{{ plant_description }}</textarea><br><br>
-      <p>{{date}}</p>
+      <div class="data_box">
+        <p class="date_text">Data wydarzenia: </p>
+        <p class="date">{{date}}</p>
+      </div>
+      
 
       <button class="login-button" type="button" onclick="{{ onclick_function|safe }}">{{ button_text|safe }}</button>
     </center>
