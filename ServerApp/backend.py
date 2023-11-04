@@ -25,6 +25,22 @@ class Backend():
     # Obiekt posiający funkcję haszującą wybrane dane:
     hasher=Hasher()
 
+    LOGGED_OUT_LOCATION = "<script>location.href = '/';</script>" # Jeśli nie zalogowany, to przekierowywujemy na stronę główną
+
+    def is_user_logged(self, cookies: dict) -> bool:
+
+        # Po wykonaniu poniższej linii rows zawiera listę użytkowników o loginie odczytanym z ciasteczka "login":
+        try:
+            rows = self.db.execute("SELECT * FROM UserName WHERE login = '" + cookies.get("login") + "';")
+        except(TypeError):
+            return False
+
+        if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
+            # Jeżeli znaleźliśmy użytkownika, zwracamy dostosowaną pod niego stronę (z jego danymi):
+            return True
+
+        return False
+
     def prepare_endpoints(self):
 
         #############################################################
@@ -70,14 +86,11 @@ class Backend():
         # Wejście na podstronę "moje konto" po zalogowaniu się:
         @self.app.route('/my_account', methods=['GET'])
         def my_account_endpoint():
-            # Po wykonaniu poniższej linii rows zawiera listę użytkowników o loginie odczytanym z ciasteczka "login":
-            rows = self.db.execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
 
-            if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
-                # Jeżeli znaleźliśmy użytkownika, zwracamy dostosowaną pod niego stronę (z jego danymi):
-                return self.accounts_pages_gen.generate_my_account_page(request.cookies.get("login"))
+            if not self.is_user_logged(request.cookies):
+                return self.LOGGED_OUT_LOCATION
 
-            return "<script>location.href = '/';</script>" # Jeśli nie, to przekierowywujemy na stronę główną
+            return self.accounts_pages_gen.generate_my_account_page(request.cookies.get("login"))
 
         # Po wpisaniu starego hasła oraz 2 razy nowego i kliknięciu "zmień hasło":
         @self.app.route('/my_account', methods=['POST'])
@@ -113,16 +126,11 @@ class Backend():
         # Wejście na podstronę "moje rośliny" po zalogowaniu się:
         @self.app.route('/my_plants', methods=['GET'])
         def my_plants_endpoint():
-            try:
-                # Po wykonaniu poniższej linii rows zawiera listę użytkowników o loginie odczytanym z ciasteczka "login":
-                rows = self.db.execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
-            except(TypeError):
-                #jak napotka ten error, to wraca do strony do logowania
-                return "<script>location.href = '/';</script>"
-            if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
-                return self.my_plants_gen.generate_plants_page(request.cookies.get("login"))
 
-            return "<script>location.href = '/';</script>"
+            if not self.is_user_logged(request.cookies):
+                return self.LOGGED_OUT_LOCATION
+
+            return self.my_plants_gen.generate_plants_page(request.cookies.get("login"))
 
         # Po wpisaniu loginu i hasła oraz kliknięciu "zaloguj":
         @self.app.route('/my_plants', methods=['POST'])
@@ -163,7 +171,7 @@ class Backend():
         def add_or_edit_plant_endpoint():
             post_data_dict = request.get_json()
             login_cookie = request.cookies.get("login")
-            
+
             if request.method == "POST":
                 if self.my_plants_gen.plantAdded(login_cookie, post_data_dict):
                     return make_response("", 201)
@@ -203,27 +211,18 @@ class Backend():
         @self.app.route('/calendar', methods=['GET'])
         def redirect_to_calendar_page():
 
-            rows = self.db.execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
+            if not self.is_user_logged(request.cookies):
+                return self.LOGGED_OUT_LOCATION
 
-            if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
-                return self.calendar_pages_gen.generate_calendar_page(request.cookies.get("login"))
-
-            return "<script>location.href = '/';</script>"
-
+            return self.calendar_pages_gen.generate_calendar_page(request.cookies.get("login"))
 
         @self.app.route('/user_events', methods=['GET'])
         def user_events_endpoint():
-            try:
-                # Po wykonaniu poniższej linii rows zawiera listę użytkowników o loginie odczytanym z ciasteczka "login":
-                rows = self.db.execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
-            except(TypeError):
-                #jak napotka ten error, to wraca do strony do logowania
+            if not self.is_user_logged(request.cookies):
                 return make_response("", 403)
-            if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
-                return self.calendar_pages_gen.get_user_events(request.cookies.get("login"))
 
-            return make_response("", 403)
-        
+            return self.calendar_pages_gen.get_user_events(request.cookies.get("login"))
+
         # Request ten jest wysyłany przez klienta w celu usunięcia wydarzenia.
         @self.app.route('/remove_event', methods=["DELETE"])
         def remove_event_endpoint():
@@ -250,7 +249,7 @@ class Backend():
         def add_or_edit_event_endpoint():
             post_data_dict = request.get_json()
             login_cookie = request.cookies.get("login")
-            
+
             if request.method == "POST":
                 if self.calendar_pages_gen.eventAdded(login_cookie, post_data_dict):
                     return make_response("", 201)
@@ -260,13 +259,14 @@ class Backend():
                     return make_response("", 201)
 
             return make_response("", 400)
-        
+
         # Ten endpoint służy do pobrania istniejących nazw roślin z bazy danych.
         # Request ten jest odbierany automatycznie podczas ładowania podstrony.
         @self.app.route('/get_names_data', methods=['GET'])
         def get_names_data_endpoint():
             plant_id = request.args.get("plant_id")
             return self.calendar_pages_gen.generate_names_json(plant_id)
+
     #############################################################
     ################ METODY PUBLICZNE ###########################
     #############################################################
