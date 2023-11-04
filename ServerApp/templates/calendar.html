@@ -65,18 +65,6 @@
     <div class="return-button-container">
       <button class="return-button" onclick="log_out()">Wyloguj mnie</button>
     </div>
-    <script>
-      function log_out() {
-        // Ustaw czas wygaśnięcia ciasteczka na datę w przeszłości (np. 1 stycznia 1970 roku)
-        const allCookies = document.cookie.split(';'); // Podziel ciasteczka po średniku
-        for (let i = 0; i < allCookies.length; i++) {
-        const cookie = allCookies[i].trim(); // Usuń ewentualne białe znaki
-        console.log(cookie);
-    }
-        document.cookie = "login" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        window.location.href="/";
-      }
-    </script>
   </div>
   <div class="footer">
     <p>© 2023 PlantReminder.</p>

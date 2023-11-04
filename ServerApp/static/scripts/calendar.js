@@ -6,20 +6,23 @@ let table_fields = document.querySelectorAll("#calendar tbody td");
 
 let user_events = {};
 
-function prev_month(){
+function prev_month() {
     browsing_date = new Date(browsing_date.getFullYear(), browsing_date.getMonth() - 1, 1);
     generate_calendar();
 }
-function next_month(){
+
+function next_month() {
     browsing_date = new Date(browsing_date.getFullYear(), browsing_date.getMonth() + 1, 1);
     generate_calendar();
 }
-function clear_calendar(){
+
+function clear_calendar() {
     for(i=0;i<table_fields.length;i++){
         table_fields[i].innerHTML ="";
     }
 }
-function generate_calendar(){
+
+function generate_calendar() {
     let first_date_of_month = new Date (browsing_date.getFullYear(),browsing_date.getMonth(),1);
     let last_date_of_month = new Date (browsing_date.getFullYear(),browsing_date.getMonth()+1,0);
     let first_day_of_week = first_date_of_month.getDay();
@@ -68,7 +71,7 @@ function generate_calendar(){
         }
     }
 }
-//TODO 
+
 //funkcja do pobierania eventów z serwera
 async function get_user_events() {
 
@@ -78,7 +81,6 @@ async function get_user_events() {
 
 function make_day_without_tooltip(css_class, day_number, month_number, year_number) {
 
-    console.log(day_number)
     day_content = `<span class=${css_class} onclick="redirect_to_add_event(0, ${day_number},${month_number},${year_number})">${day_number}</span>`;
     return day_content;
 }
@@ -88,7 +90,7 @@ function make_tooltip_for_day(events, css_class, day_number, month_number, year_
     let tooltiptext = "<hr>";
     const needed_indexes = [1, 2, 4, 5];
     for(const j in events) {
-    
+
         for (const i in needed_indexes) {
             if (events[j][needed_indexes[i]]) tooltiptext += `${events[j][needed_indexes[i]]}<br>`;
         }
@@ -112,7 +114,7 @@ function remove_event(special_event_id) {
     if (!confirm("Czy na pewno usunąć wydarzenie?")) {
       return;
     }
-  
+
     let fetch_options = {
       method: 'DELETE',
       headers: {
@@ -120,7 +122,7 @@ function remove_event(special_event_id) {
       },
       body: JSON.stringify(event_data)
     };
-  
+
     fetch("/remove_event", fetch_options)
     .then(response => {
       if (response.status == 204) {
@@ -132,14 +134,31 @@ function remove_event(special_event_id) {
 
 //wybieranie daty z kalendarza
 function redirect_to_add_event(event_id, day_number, month_number, year_number) {
-    //document.cookie="date = "
+
+    let choosen_date = new Date();
+    choosen_date.setDate(day_number);
+    choosen_date.setMonth(month_number);
+    choosen_date.setFullYear(year_number);
+
+    const today = new Date();
+
+    if (choosen_date < today) {
+        alert("Nie można dodać wydarzenia w przeszłości.");
+        return;
+    }
+
     window.location.href=`/event_form?event_id=${event_id}&day=${day_number}&month=${month_number+1}&year=${year_number}`;
 }
 
-
-
-
-
+function log_out() {
+    // Ustaw czas wygaśnięcia ciasteczka na datę w przeszłości (np. 1 stycznia 1970 roku)
+    const allCookies = document.cookie.split(';'); // Podziel ciasteczka po średniku
+    for (let i = 0; i < allCookies.length; i++) {
+        const cookie = allCookies[i].trim(); // Usuń ewentualne białe znaki
+    }
+    document.cookie = "login" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href="/";
+}
 
 get_user_events();
 setTimeout(generate_calendar, 100);

@@ -7,7 +7,6 @@ function log_out() {
   const allCookies = document.cookie.split(';'); // Podziel ciasteczka po średniku
   for (let i = 0; i < allCookies.length; i++) {
     const cookie = allCookies[i].trim(); // Usuń ewentualne białe znaki
-    console.log(cookie);
   }
   document.cookie = "login" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   window.location.href="/";

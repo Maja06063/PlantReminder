@@ -14,6 +14,7 @@ function download_species_data() {
     document.querySelector("#fertiliz_period").value = data["fertilization"];
   });
 }
+
 function get_plant_data(){
   const plant_name = document.querySelector("#plant_name").value;
   const species = document.querySelector("#species").value;
@@ -22,7 +23,7 @@ function get_plant_data(){
   const plant_description = document.querySelector("#plant_description").value;
   const last_watering = document.querySelector("#last_watering").value;
   const last_fertiliz = document.querySelector("#last_fertiliz").value;
-  
+
   const plant_data = {
     plant_name: plant_name,
     species: species,
@@ -34,6 +35,7 @@ function get_plant_data(){
   };
   return plant_data;
 }
+
 function save_edited_plant(){
   plant_data= get_plant_data();
   plant_data["plant_id"]=url_params.get("plant_id");
@@ -75,18 +77,6 @@ function save_new_plant() {
     }
     else alert("Nie udało się dodać rośliny");
   });
-}
-
-function click_checkbox(){
-  const default_checkbox=document.querySelector("#default_checkbox");
-  if (default_checkbox.checked){
-      document.querySelector("#watering_period").disabled = true;
-      document.querySelector("#fertiliz_period").disabled = true;
-  }
-  else{
-      document.querySelector("#watering_period").disabled = false;
-      document.querySelector("#fertiliz_period").disabled = false;
-  }
 }
 
 const url = window.location.search;

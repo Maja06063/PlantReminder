@@ -120,8 +120,9 @@ class MyPlantsPageGenerator():
             )
 
     def generate_species_json(self, species_id) -> str:
+
         species_info = self.db.execute("SELECT * FROM species WHERE species_id = %d;"%int(species_id))
-        print(species_info)
+
         species_dict = {"watering": species_info[0][2], "fertilization": species_info[0][3]}
         return json.dumps(species_dict)
 
@@ -154,8 +155,6 @@ class MyPlantsPageGenerator():
 
 
     def plantEdited(self, login, post_data_dict) -> bool:
-        print(post_data_dict["plant_id"])
-        #zwraca czy udało się dodać do bazy danych (zarejestrować)
 
         is_success = self.db.commit("""
             UPDATE Plants

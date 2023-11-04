@@ -38,7 +38,7 @@ class CalendarPagesGenerator:
         if event_id != 0:
             events = self.db.execute("SELECT * FROM SpecialEvent WHERE special_event_id = %d;"%event_id)
             event = events[0]
-        print(names_species)
+
         plant_names_species_options = ""
         for one_name_specie in names_species:
             if event_id != 0 and one_name_specie[0] == event[1]:
@@ -52,8 +52,7 @@ class CalendarPagesGenerator:
                     ""if one_name_specie[2]==None else one_name_specie[2],
                     one_name_specie[3])
 
-        print(date)
-        date = "%4d-%2d-%2d"%(int(date[0]),int(date[1]), int(date[2]))
+        date = "%d-%d-%d"%(int(date[0]),int(date[1]), int(date[2]))
         if event_id == 0:
             return render_template(
                 "event_form.html",
@@ -62,7 +61,7 @@ class CalendarPagesGenerator:
                 onclick_function="save_new_event()",
                 button_text = "Dodaj wydarzenie"
                 )
-        print(event)
+
         return render_template(
             "event_form.html",
             event_name = event[2],
@@ -94,8 +93,6 @@ class CalendarPagesGenerator:
 
 
     def eventEdited(self, login, post_data_dict) -> bool:
-        print(post_data_dict["plant_id"])
-        #zwraca czy udało się dodać do bazy danych (zarejestrować)
 
         is_success = self.db.commit("""
             UPDATE SpecialEvent
@@ -110,8 +107,3 @@ class CalendarPagesGenerator:
             )
         )
         return is_success
-
-
-    def generate_names_json(self):
-        rows = self.db.execute("SELECTP.Plant_name S.species_name FROM Plants P, Species S where S.species_id = P.species_id")
-        print(rows)
