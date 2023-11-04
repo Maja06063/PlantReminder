@@ -1,6 +1,5 @@
 from flask import render_template
 from hash import Hasher
-import json
 
 """
 Klasa, która zajmuje się generowaniem stron związanych z kontem użytkownika
@@ -23,13 +22,6 @@ class AccountPagesGenerator:
 
         return render_template("my_account.html", login = user[0], email = user[2])
 
-    # generuje podstornę kalendarz na podstawie pliku html dla odpowiedniego użytkownika
-    def generate_calendar_page(self, login) -> str:
-
-        users = self.db.execute("SELECT * FROM UserName WHERE login = '%s';" % login)
-        user = users[0]
-
-        return render_template("calendar.html")
 
     #metoda wysyła do bazy danych żądanie dodanie nowego użytkownika do bazy danych o podanym loginie, mailu oraz zahaszowanym haśle
     def userRegistered(self, post_data_dict) -> bool:
@@ -44,30 +36,3 @@ class AccountPagesGenerator:
                                     ))        
         return is_success
 
-    def get_user_events(self, login: str) -> str:
-        events = self.db.execute("SELECT * FROM EventsOfUsers WHERE login='%s';"%login)
-        events_list=[]
-        for event in events:
-            event=list(event)
-            event[3]=str(event[3])
-            events_list.append(event)
-
-        return json.dumps(events_list)
-    
-    def generate_event_form_page(self, event_id: int, date: str):
-
-        date = "%4d-%2d-%2d"%(int(date[0]),int(date[1]), int(date[2]))
-        if event_id == 0:
-            return render_template(
-                "event_form.html",
-                date = date,
-                onclick_function="save_new_event()",
-                button_text = "Dodaj wydarzenie"
-                )
-        
-        
-        return render_template(
-            "event_form.html",
-            onclick_function="save_edited_event()",
-            button_text = "Edytuj wydarzenie",
-            )

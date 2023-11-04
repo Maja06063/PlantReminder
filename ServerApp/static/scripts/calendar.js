@@ -92,7 +92,7 @@ function make_tooltip_for_day(events, css_class, day_number, month_number, year_
         for (const i in needed_indexes) {
             if (events[j][needed_indexes[i]]) tooltiptext += `${events[j][needed_indexes[i]]}<br>`;
         }
-        tooltiptext += `<button id="edit_plant_button" onclick="redirect_to_add_event(${events[j][0]}, 0)"><img class="care_icon" src="/static/img/pencil.png" alt="Edytuj"></button>
+        tooltiptext += `<button id="edit_plant_button" onclick="redirect_to_add_event(${events[j][0]}, ${day_number},${month_number},${year_number} )"><img class="care_icon" src="/static/img/pencil.png" alt="Edytuj"></button>
             <button id="remove_plant_button" onclick="remove_event(${events[j][0]})"><img class="care_icon" src="/static/img/false.png" alt="X"></button>`;
         tooltiptext += "<hr>";
     }

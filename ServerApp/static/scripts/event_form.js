@@ -2,7 +2,7 @@ function go_to_main_page() {
   window.location.href="/calendar";
 }
 
-function download_species_data() {
+function download_names_data() {
   const species_id = document.querySelector("#species").value;
   const url = "/get_species_data?species_id="+species_id;
   fetch(url)

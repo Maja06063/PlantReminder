@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, make_response
 from my_plants import MyPlantsPageGenerator
 from my_account import AccountPagesGenerator
 from hash import Hasher
+from my_calendar import CalendarPagesGenerator
 
 """
 Klasa Backend zajmuje się obsługą serwera HTTP. Posiada ona zdefiniowane
@@ -15,8 +16,11 @@ class Backend():
     # Obiekt zawierający metody do generowania stron internetowych związanych z roślinami:
     my_plants_gen = MyPlantsPageGenerator()
 
-    # Obiekt zawierający metody do generowanie stron internetowych związanych z kontem urzytkownika:
+    # Obiekt zawierający metody do generowanie stron internetowych związanych z kontem użytkownika:
     accounts_pages_gen = AccountPagesGenerator()
+
+    #Obiekt zawierający metody go generowania stron internetowych związanych z kalendarzem:
+    calendar_pages_gen = CalendarPagesGenerator()
 
     # Obiekt posiający funkcję haszującą wybrane dane:
     hasher=Hasher()
@@ -202,7 +206,7 @@ class Backend():
             rows = self.db.execute("SELECT * FROM UserName WHERE login = '" + request.cookies.get("login") + "';")
 
             if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
-                return self.accounts_pages_gen.generate_calendar_page(request.cookies.get("login"))
+                return self.calendar_pages_gen.generate_calendar_page(request.cookies.get("login"))
 
             return "<script>location.href = '/';</script>"
 
@@ -216,11 +220,11 @@ class Backend():
                 #jak napotka ten error, to wraca do strony do logowania
                 return make_response("", 403)
             if (len(rows) == 1): #Sprawdzamy czy znaleziono uzytkownika o podany loginie
-                return self.accounts_pages_gen.get_user_events(request.cookies.get("login"))
+                return self.calendar_pages_gen.get_user_events(request.cookies.get("login"))
 
             return make_response("", 403)
         
-        # Request ten jest wysyłany przez klienta w celu usunięcia rośliny.
+        # Request ten jest wysyłany przez klienta w celu usunięcia wydarzenia.
         @self.app.route('/remove_event', methods=["DELETE"])
         def remove_event_endpoint():
             post_data_dict = request.get_json()
@@ -239,7 +243,8 @@ class Backend():
             date=[day,month,year]
 
             # TODO zmienić to dla wydarzenia zamiast rośliny:
-            return self.accounts_pages_gen.generate_event_form_page(int(event_id), date)
+            login_cookie = request.cookies.get("login")
+            return self.calendar_pages_gen.generate_event_form_page(int(event_id), date, login_cookie)
 
         # Request ten jest wysyłany przez klienta w celu zapisania nowego lub edytowanego wydarzenia.
         @self.app.route('/save_event', methods=["POST", "PUT"])
@@ -249,16 +254,22 @@ class Backend():
             
             if request.method == "POST":
                 # TODO dla eventu zamiast rośliny:
-                if self.my_plants_gen.plantAdded(login_cookie, post_data_dict):
+                if self.calendar_pages_gen.plantAdded(login_cookie, post_data_dict):
                     return make_response("", 201)
 
             elif request.method == "PUT":
                 # TODO dla eventu zamiast rośliny:
-                if self.my_plants_gen.plantEdited(login_cookie, post_data_dict):
+                if self.calendar_pages_gen.plantEdited(login_cookie, post_data_dict):
                     return make_response("", 201)
 
             return make_response("", 400)
-
+        
+        # Ten endpoint służy do pobrania istniejących nazw roślin z bazy danych.
+        # Request ten jest odbierany automatycznie podczas ładowania podstrony.
+        @self.app.route('/get_names_data', methods=['GET'])
+        def get_names_data_endpoint():
+            plant_id = request.args.get("plant_id")
+            return self.calendar_pages_gen.generate_names_json(plant_id)
     #############################################################
     ################ METODY PUBLICZNE ###########################
     #############################################################
@@ -277,3 +288,4 @@ class Backend():
         self.db = db_to_add
         self.my_plants_gen.add_database(db_to_add)
         self.accounts_pages_gen.add_database(db_to_add)
+        self.calendar_pages_gen.add_database(db_to_add)
