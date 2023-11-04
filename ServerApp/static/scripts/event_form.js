@@ -63,3 +63,6 @@ function save_new_event() {
     else alert("Nie udało się stworzyć wydarzenia");
   });
 }
+
+const url = window.location.search;
+const url_params = new URLSearchParams (url);
