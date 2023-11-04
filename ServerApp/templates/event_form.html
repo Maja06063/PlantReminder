@@ -12,29 +12,31 @@
   <div class="main-container">
     <center class="center-container">
       <h2 class="no-bold-header">Dodawanie wydarzenia</h2>
-      <label for="event_name">Nazwa wydarzenia:</label>
-      <input type="text" id="event_name" maxlength="20" placeholder="Nazwa rośliny" value="{{ event_name }}"><br><br>
-      <label class="specie" for="species">Gatunek/Nazwa rośliny:</label>
-      <div class="box">
-      <select class = "box1"id="plant_names_species" name="plant_names_species" onchange="download_species_data()">
-        {{ available_names_species|safe }}
-      </select>
-      </div><br><br>
-      <label for="event_description">Opis:</label><br>
-      <textarea id="event_description" maxlength="100" rows="4" cols="50" type="text">{{ event_description }}</textarea><br><br>
-      <div class="data_box">
-        <p class="date_text">Data wydarzenia: </p>
-        <p class="date">{{date}}</p>
-      </div>
-      
+      <form>
+        <label for="event_name">Nazwa wydarzenia:</label>
+        <input type="text" id="event_name" maxlength="20" placeholder="Nazwa wydarzenia" value="{{ event_name }}"><br><br>
+        <label class="specie" for="species">Gatunek/Nazwa rośliny:</label>
+        <div class="box">
+        <select class = "box1"id="plant_names_species" name="plant_names_species" onchange="download_species_data()">
+          {{ available_names_species|safe }}
+        </select>
+        </div><br><br>
+        <label for="event_description">Opis:</label><br>
+        <textarea id="event_description" maxlength="100" rows="4" cols="50" type="text">{{ event_description }}</textarea><br><br>
+        <div class="data_box">
+          <p class="date_text">Data wydarzenia: </p>
+          <p class="date">{{date}}</p>
+        </div>
+        
 
-      <button class="login-button" type="button" onclick="{{ onclick_function|safe }}">{{ button_text|safe }}</button>
+        <button class="login-button" type="button" onclick="{{ onclick_function|safe }}">{{ button_text|safe }}</button>
+      </form>
     </center>
     <div class="return-button-container">
       <button class="return-button" onclick="go_to_main_page()">Cofnij</button>
     </div>
   </div>
-  <script src="{{ url_for('static', filename='scripts/plant_card.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/event_form.js') }}"></script>
   <div class="footer">
       <p>© 2023 PlantReminder.</p>
   </div>

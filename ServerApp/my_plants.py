@@ -10,13 +10,28 @@ class MyPlantsPageGenerator():
     def add_database(self, db_to_add):
         self.db = db_to_add
 
-    def days_to_care(self, last_action_date, days_to_add) -> int:
+    def days_to_care(self, last_action_date: date, days_to_add: int) -> int:
 
         delta = timedelta(days=days_to_add)
         today = date.today()
         result = int((last_action_date + delta - today).days)
 
         return result if result > 0 else 0
+
+    def days_to_next_event(self,plant_id) -> int:
+
+        events_for_plant = self.db.execute("SELECT * FROM SpecialEvent WHERE plant_id = %d;"%plant_id)
+        dates_of_events = []
+        for event in events_for_plant:
+            dates_of_events.append(event[4])
+        today = date.today()
+        dates_of_events = [date for date in dates_of_events if date >= today]
+        dates_of_events.sort()
+
+        if len(dates_of_events) == 0:
+            return -1
+        
+        return int((dates_of_events[0] - today).days)
 
     def generate_logged_page(self, args_dict) -> Response:
 
@@ -39,13 +54,14 @@ class MyPlantsPageGenerator():
 
         days_to_water = self.days_to_care(plant.last_watered_date, plant.watering_period)
         days_to_fertiliz = self.days_to_care(plant.last_fertilized_date, plant.fertilization_period)
+        days_to_event = self.days_to_next_event(plant.id)
         card = {
             "plant_id": plant.id,
             "species_name": species_name,
             "plant_name": plant.name if plant.name != None else self.HTML_EMPTY_SPACE,
             "days_to_water": days_to_water,
             "days_to_fertiliz": days_to_fertiliz,
-            "days_to_event": -1,
+            "days_to_event": "Następne wydarzenie: Za <strong>%d</strong> dni" % days_to_event if days_to_event != -1 else "",
             "description": plant.description if plant.description != None else self.HTML_EMPTY_SPACE,
             "color_id": "red_card" if days_to_water==0 or days_to_fertiliz ==0 else  ""
         }

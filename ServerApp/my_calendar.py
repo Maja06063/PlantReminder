@@ -73,7 +73,43 @@ class CalendarPagesGenerator:
             button_text = "Edytuj wydarzenie",
             )
 
+    def eventAdded(self, login, post_data_dict) -> bool:
 
+        #zwraca czy udało się dodać do bazy danych (zarejestrować)
+        is_success = self.db.commit("""
+            INSERT INTO SpecialEvent (
+                plant_id,
+                event_name,
+                event_description,
+                event_date
+            ) VALUES (%d, '%s', '%s', '%s');""" %
+            (
+                int(post_data_dict["plant_id"]),
+                post_data_dict["event_name"],
+                post_data_dict["event_description"],
+                post_data_dict["event_date"]
+            )
+        )
+        return is_success
+
+
+    def eventEdited(self, login, post_data_dict) -> bool:
+        print(post_data_dict["plant_id"])
+        #zwraca czy udało się dodać do bazy danych (zarejestrować)
+
+        is_success = self.db.commit("""
+            UPDATE SpecialEvent
+            SET plant_id = %d,
+            event_name = '%s',
+            event_description = '%s'                       
+            WHERE special_event_id = %d;""" % (
+                int(post_data_dict["plant_id"]),
+                post_data_dict["event_name"],
+                post_data_dict["event_description"],
+                int(post_data_dict["event_id"])
+            )
+        )
+        return is_success
 
 
     def generate_names_json(self):

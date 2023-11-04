@@ -25,9 +25,9 @@
           <center>
             <h2 class="no-bold-header">{{ plant_card["species_name"] }}</h2>
             <h3 class="Species-header">{{ plant_card["plant_name"] }}</h3>
-            <span style="display: block";> Następne podlewanie:Za <strong>{{ plant_card["days_to_water"] }}</strong> dni</span>
-            <span style="display: block";> Następne nawożenie:Za <strong>{{ plant_card["days_to_fertiliz"] }}</strong> dni</span>
-            <span style="display: block";> Następne wydarzenie:Za <strong>{{ plant_card["days_to_event"] }}</strong> dni</span>
+            <span style="display: block";>Następne podlewanie: Za <strong>{{ plant_card["days_to_water"] }}</strong> dni</span>
+            <span style="display: block";>Następne nawożenie: Za <strong>{{ plant_card["days_to_fertiliz"] }}</strong> dni</span>
+            <span style="display: block";>{{ plant_card["days_to_event"]|safe }}</span>
             <p class="species-description">{{ plant_card["description"] }}</p>
           <div class="edit_plant">
             <button id="remove_plant_button" onclick="remove_plant(parseInt('{{ plant_card.plant_id }}'))"><img class="care_icon" src="{{ url_for('static', filename='img/false.png') }}" alt="X"></button>

@@ -14,66 +14,64 @@ function download_names_data() {
     document.querySelector("#fertiliz_period").value = data["fertilization"];
   });
 }
-function get_plant_data(){
-  const plant_name = document.querySelector("#plant_name").value;
-  const species = document.querySelector("#species").value;
-  const watering_period = document.querySelector("#watering_period").value;
-  const fertiliz_period = document.querySelector("#fertiliz_period").value;
-  const plant_description = document.querySelector("#plant_description").value;
-  const last_watering = document.querySelector("#last_watering").value;
-  const last_fertiliz = document.querySelector("#last_fertiliz").value;
+function get_event_data(){
+  const plant_id = document.querySelector("#plant_names_species").value;
+  const event_name = document.querySelector("#event_name").value;
+  const event_description = document.querySelector("#event_description").value;
   
-  const plant_data = {
-    plant_name: plant_name,
-    species: species,
-    watering_period: watering_period,
-    fertiliz_period: fertiliz_period,
-    plant_description: plant_description,
-    last_watering: last_watering,
-    last_fertiliz: last_fertiliz
+  const event_data = {
+    plant_id:plant_id,
+    event_name: event_name,
+    event_description: event_description
   };
-  return plant_data;
+  return event_data;
 }
-function save_edited_plant(){
-  plant_data= get_plant_data();
-  plant_data["plant_id"]=url_params.get("plant_id");
+function save_edited_event(){
+  event_data= get_event_data();
+  event_data["event_id"]=url_params.get("event_id");
 
   let fetch_options = {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(plant_data)
+    body: JSON.stringify(event_data)
   };
 
-  fetch("/save_plant", fetch_options)
+  fetch("/save_event", fetch_options)
   .then(response => {
     if (response.status == 201) {
       alert("Zmiany zapisane");
-      window.location.href = "/my_plants";
+      window.location.href = "/calendar";
     }
     else alert("Nie udało się zapisać zmian");
   });
 }
 
-function save_new_plant() {
-  plant_data= get_plant_data();
+function save_new_event() {
+  event_data= get_event_data();
+  event_data["event_date"]=url_params.get("year")+"-"+url_params.get("month")+"-"+url_params.get("day");
+
+  if (!event_data["event_name"]) {
+    alert("Nie udało się dodać wydarzenia. Nazwa wydarzenia jest wymagana.")
+    return;
+  }
 
   let fetch_options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(plant_data)
+    body: JSON.stringify(event_data)
   };
 
-  fetch("/save_plant", fetch_options)
+  fetch("/save_event", fetch_options)
   .then(response => {
     if (response.status == 201) {
-      alert("Roślina dodana");
-      window.location.href = "/my_plants";
+      alert("Wydarzenie dodane");
+      window.location.href = "/calendar";
     }
-    else alert("Nie udało się dodać rośliny");
+    else alert("Nie udało się stworzyć wydarzenia");
   });
 }
 

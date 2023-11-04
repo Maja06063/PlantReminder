@@ -242,7 +242,6 @@ class Backend():
             year = request.args.get("year")
             date=[day,month,year]
 
-            # TODO zmienić to dla wydarzenia zamiast rośliny:
             login_cookie = request.cookies.get("login")
             return self.calendar_pages_gen.generate_event_form_page(int(event_id), date, login_cookie)
 
@@ -253,13 +252,11 @@ class Backend():
             login_cookie = request.cookies.get("login")
             
             if request.method == "POST":
-                # TODO dla eventu zamiast rośliny:
-                if self.calendar_pages_gen.plantAdded(login_cookie, post_data_dict):
+                if self.calendar_pages_gen.eventAdded(login_cookie, post_data_dict):
                     return make_response("", 201)
 
             elif request.method == "PUT":
-                # TODO dla eventu zamiast rośliny:
-                if self.calendar_pages_gen.plantEdited(login_cookie, post_data_dict):
+                if self.calendar_pages_gen.eventEdited(login_cookie, post_data_dict):
                     return make_response("", 201)
 
             return make_response("", 400)
@@ -279,7 +276,7 @@ class Backend():
     działa ona w sposób blokujący (nieskończona pętla).
     """
     def run(self):
-        self.app.run()
+        self.app.run(debug=True)
 
     """
     Metoda ta dodaje obiekt połączenia z bazą danych do backendu.
