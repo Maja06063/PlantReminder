@@ -21,7 +21,7 @@ INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Monster
 INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Kaktus',21,28);
 INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Wrzos',2,28);
 INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Fikus',10,21);
-INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Paproc',4,35);
+INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Paproæ',4,35);
 
 INSERT INTO Plants (login,plant_species, plant_name,watering_period,fertilization_period,last_watering_date, last_fertilization_date, plant_description)
     VALUES ('IrenkaSawicka', 3, 'Ma³a monstera', 8, 20, CAST( NOW() AS Date ), CAST( NOW() AS Date ), 'Roœlina posiada przêdziorki');

@@ -53,7 +53,7 @@ body {
     font-size: 12px;
     color: #827d20;
     margin-bottom: 50px;
-    margin-top: 10px; 
+    margin-top: 10px;
     margin-bottom: 10px;
   }
   .container-right .my_data{
@@ -83,7 +83,7 @@ body {
   .container-left .confirm-button:hover{
     background-color: #9e982dc0;
   }
-  
+
 .container-right .data-border {
     font-size: 14px;
     width: 230px;

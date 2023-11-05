@@ -39,7 +39,7 @@ function remove_plant(plant_id) {
 function water_plant(plant_id) {
 
   const plant_data = {plant_id: plant_id, action:"water"};
-  if (!confirm("Podlałeś roślinę?")) {
+  if (!confirm("Czy chcesz podlać roślinę?")) {
     return;
   }
 
@@ -64,7 +64,7 @@ function water_plant(plant_id) {
 function fertiliz_plant(plant_id) {
 
   const plant_data = {plant_id: plant_id, action:"fertiliz"};
-  if (!confirm("Czy checesz nawozić roślinę?")) {
+  if (!confirm("Czy chcesz nawozić roślinę?")) {
     return;
   }
 
