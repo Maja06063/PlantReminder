@@ -1,0 +1,34 @@
+<mxfile host="app.diagrams.net" modified="2023-11-07T21:03:39.154Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0" etag="FEEyA5QtLo7KzaE-KUWe" version="22.0.8" type="device">
+  <diagram name="Strona-1" id="0wd8F_NiPoBdXosEnCZq">
+    <mxGraphModel dx="1050" dy="566" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="MgmgcVEvBvE6xo-ADqgp-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="119" y="60" width="541" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="MgmgcVEvBvE6xo-ADqgp-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="60" width="130" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="MgmgcVEvBvE6xo-ADqgp-5" value="Moje rośliny" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="125" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="MgmgcVEvBvE6xo-ADqgp-6" value="Kalendarz" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="125" y="230" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="MgmgcVEvBvE6xo-ADqgp-7" value="Wyloguj mnie" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="390" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="MgmgcVEvBvE6xo-ADqgp-106" value="Zmiana hasła" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="90" width="160" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="MgmgcVEvBvE6xo-ADqgp-107" value="Moje dane&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="90" width="160" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="MgmgcVEvBvE6xo-ADqgp-108" value="Moje konto" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#cdeb8b;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="125" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
