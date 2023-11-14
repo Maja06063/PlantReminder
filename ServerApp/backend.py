@@ -57,11 +57,6 @@ class Backend():
         def register_page():
             return render_template("register_page.html")
 
-        # Wejście na stronę z odzyskiwaniem hasła:
-        @self.app.route('/forgot_password', methods=['GET'])
-        def forgot_password_page():
-            return render_template("forgot_password.html")
-
         #############################################################
         ################ ENDPOINT REJESTRACJI #######################
         #############################################################

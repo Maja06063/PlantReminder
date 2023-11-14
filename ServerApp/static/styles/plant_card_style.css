@@ -119,14 +119,9 @@ button:active {
   box-shadow: none;
   transform: scale(0.98);
 }
+
 .button-container {
   display: flex;
-}
-
-  .center_container_forgot button:hover {
-  background-color: #fffee596;
-  box-shadow: 0 0 20px #3A3A3A;
-  transform: scale(1.065);
 }
 
 .button-container {
