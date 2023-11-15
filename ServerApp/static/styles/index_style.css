@@ -137,7 +137,9 @@ button:active {
 }
 
 @media (max-width: 1000px) {
-
+  .prev{
+    height: 500px;
+  }
   .center-container {
 
     width: auto;

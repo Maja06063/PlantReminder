@@ -33,7 +33,6 @@ input:valid {
 }
 
 .center-container button {
-  margin-top: 7px;
   background-color: transparent;
   margin-bottom: 10px;
   border: 1px solid #3A3A3A;
@@ -167,6 +166,7 @@ body {
   padding: 12px;
   font-size: 1em;
   z-index: 1;
+  position: sticky;
 }
 
 .main-container .return-button {

@@ -1,0 +1,55 @@
+<mxfile host="app.diagrams.net" modified="2023-11-15T17:28:37.867Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0" etag="wtgPHSoORg5Pk1PisFjY" version="22.1.1" type="device">
+  <diagram name="Strona-1" id="4IL6ajh2CoNz9iHl3vMC">
+    <mxGraphModel dx="1050" dy="566" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="8k0b6owkMai25SON3Frz-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="8k0b6owkMai25SON3Frz-2" target="8k0b6owkMai25SON3Frz-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8k0b6owkMai25SON3Frz-2" value="dodania połączenia bazy danych do obiektu backend" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="265" y="300" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8k0b6owkMai25SON3Frz-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="8k0b6owkMai25SON3Frz-3" target="8k0b6owkMai25SON3Frz-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8k0b6owkMai25SON3Frz-3" value="" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;" vertex="1" parent="1">
+          <mxGeometry x="325" y="30" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8k0b6owkMai25SON3Frz-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="8k0b6owkMai25SON3Frz-6" target="8k0b6owkMai25SON3Frz-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8k0b6owkMai25SON3Frz-6" value="otwarcie połączenia z bazą danych" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="265" y="200" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8k0b6owkMai25SON3Frz-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="8k0b6owkMai25SON3Frz-7" target="8k0b6owkMai25SON3Frz-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8k0b6owkMai25SON3Frz-7" value="inicjalizacja obiektu backend" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="265" y="100" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8k0b6owkMai25SON3Frz-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="8k0b6owkMai25SON3Frz-8" target="8k0b6owkMai25SON3Frz-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8k0b6owkMai25SON3Frz-8" value="utworzenie punktów końcowych (endpoint)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="265" y="400" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8k0b6owkMai25SON3Frz-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="480" as="targetPoint" />
+            <mxPoint x="350" y="560" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="340" y="560" />
+              <mxPoint x="340" y="580" />
+              <mxPoint x="430" y="580" />
+              <mxPoint x="430" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8k0b6owkMai25SON3Frz-9" value="uruchomienie serwera HTTP (nieskończona pętla)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="265" y="500" width="150" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
