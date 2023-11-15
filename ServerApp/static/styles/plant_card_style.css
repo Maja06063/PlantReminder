@@ -17,7 +17,7 @@
 
 .no-bold-header {
   margin-bottom: 10px;
-  font-size: 58px;
+  font-size: 5em;
   color: #827d20;
 }
 
@@ -70,7 +70,7 @@ input:valid {
   border-color: #827d20;
   border-radius: 8px;
   padding: 12px;
-  font-size: 16px;
+  font-size: 1em;
 }
 .center-container button:hover {
   background-color: #9e982dc0;
@@ -99,11 +99,11 @@ button:active {
   margin-top: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
-  width: 80px;
+  width: fit-content;
 }
 
 .no-bold-header{
-  font-size: 48px;
+  font-size: 4em;
   color: #827d20;
   padding-bottom: 5px;
   padding-top: 20px;
@@ -132,7 +132,7 @@ button:active {
   border-color: #827d20;
   border-radius: 8px; /* Zwiększenie zaokrąglenia rogów */
   padding: 12px; /* Zwiększenie wewnętrznego odstępu */
-  font-size: 16px; /* Zwiększenie rozmiaru czcionki */
+  font-size: 1em;
 }
 
 .return-button-container {
@@ -152,14 +152,7 @@ button:active {
   border-color: #827d20;
   border-radius: 8px;
   padding: 12px;
-  font-size: 16px;
-}
-
-.main-container .return-button {
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  width: 5%; /* Szerokość ustawiona na 100% */
+  font-size: 1em;
 }
 
 .main-container button:hover {
@@ -191,7 +184,7 @@ button:active {
   background-color: #4CAF50;
   color: #212121;
   padding: 10px 15px;
-  font-size: 15px;
+  font-size: 1em;
   font-weight: bold;
   border: 2px solid transparent;
   border-radius: 15px;
@@ -239,12 +232,10 @@ button:active {
   width: 150px;
   height: 30px;
   border: 1px solid #827d20;
-  font-size: 20px;
   -webkit-appearance: button;
   appearance: button;
   outline: none;
-  font-size: 16px;
-
+  font-size: 1em;
 }
 
 .box select option {
@@ -255,4 +246,24 @@ button:active {
 
 .box select option:hover{
   background-color: rgba(135, 130, 36, 0.549);
+}
+
+textarea {
+  width: 90%;
+}
+
+@media (max-width: 1000px) {
+
+  .center-container {
+    width: auto;
+    height: 640px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #fffee5;
+    padding: 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+  }
 }

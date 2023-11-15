@@ -94,6 +94,7 @@
   margin-bottom: 50px;
   border: 1px solid #3a3a3a60;
 }
+
 .legend2{
   justify-content: center;
   text-align: center;
@@ -119,22 +120,11 @@
   margin-right: 8px;
 }
 
-
-
-
-
-
-
-
-
-
-
 .tooltip {
   position: relative;
   display: inline-block;
 }
 
-/* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
   background-color: rgb(205, 185, 153);
@@ -143,13 +133,23 @@
   text-align: center;
   padding: 10px 10px;
   border-radius: 6px;
- 
-  /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+@media (max-width: 1000px) {
+
+  .legend_bar {
+    margin-top: 20px;
+    flex-direction: row;
+  }
+
+  .legend{
+    margin-bottom: 0px;
+    margin-right: 20px;
+  }
 }

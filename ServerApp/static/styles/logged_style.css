@@ -41,7 +41,7 @@ input:valid {
   border-color: #827d20;
   border-radius: 8px;
   padding: 12px;
-  font-size: 16px;
+  font-size: 1em;
 }
 
 .button-container button{
@@ -145,15 +145,12 @@ body {
   margin-left: auto;
   margin-right: auto;
   background-color: #fffee5;
-  /*padding: 0;*/
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
   font-family: 'Roboto', sans-serif;
   flex: 1;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  /*justify-content: left;
-  height: 990px;*/
 }
 
 .main-container {
@@ -168,16 +165,12 @@ body {
   border-color: #827d20;
   border-radius: 8px;
   padding: 12px;
-  font-size: 16px;
+  font-size: 1em;
   z-index: 1;
-  position: sticky;
 }
 
 .main-container .return-button {
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  width: 80px;
+  width: fit-content;
 }
 
 .main-container button:hover {
@@ -201,6 +194,9 @@ body {
 .return-button-container {
   display: flex;
   justify-content: right;
+  align-items: flex-end;
+  height: max-content;
+  padding: 10px 0px;
 }
 
 .care_icon {
@@ -222,4 +218,14 @@ body {
   height: 62px;
   border-radius: 10px;
   margin-top: 5px;
+}
+
+@media (max-width: 1000px) {
+  .main-container .return-button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: fit-content;
+    height: fit-content;
+    font-size: 3em;
+  }
 }

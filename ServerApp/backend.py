@@ -255,13 +255,6 @@ class Backend():
 
             return make_response("", 400)
 
-        # Ten endpoint służy do pobrania istniejących nazw roślin z bazy danych.
-        # Request ten jest odbierany automatycznie podczas ładowania podstrony.
-        @self.app.route('/get_names_data', methods=['GET'])
-        def get_names_data_endpoint():
-            plant_id = request.args.get("plant_id")
-            return self.calendar_pages_gen.generate_names_json(plant_id)
-
     #############################################################
     ################ METODY PUBLICZNE ###########################
     #############################################################
@@ -271,7 +264,7 @@ class Backend():
     działa ona w sposób blokujący (nieskończona pętla).
     """
     def run(self):
-        self.app.run(debug=True)
+        self.app.run(debug=True, host="0.0.0.0")
 
     """
     Metoda ta dodaje obiekt połączenia z bazą danych do backendu.

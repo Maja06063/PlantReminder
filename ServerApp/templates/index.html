@@ -8,7 +8,8 @@
     }
   </style>
   <meta charset="utf-8">
-  <title>PlantReminder | MajaSkibinska</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlertRoślinny | MajaSkibinska</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/index_style.css') }}">
   <!-- Dodaj link do zewnętrznej czcionki (jeśli dostępna online) -->
@@ -20,10 +21,10 @@
     <h1 class="no-bold-header">Zaloguj się</h1>
 
     <form action="my_plants" class = "bezimg-container" method="post" name = "form" onsubmit="return validated()">
-      <input type = "text" placeholder = "Login" name = "login"><br><br>
+      <input class="login" type = "text" placeholder = "Login" name = "login">
       <div id = "login_error">Wpisz poprawne hasło, aby się zalogować.</div>
       <div id = "regist_ok">Udana rejestracja, możesz się zalogować.</div>
-      <input autocomplete="off" type = "password" placeholder = "Hasło" name ="password" ><br><br>
+      <input class="password" autocomplete="off" type = "password" placeholder = "Hasło" name ="password" >
       <div id = "pass_error">Wpisz poprawne hasło, aby się zalogować</div>
       <div class = "button-container">
         <form>
@@ -34,12 +35,6 @@
     </form>
     <img class="img_plant" src="{{ url_for('static', filename='img/purple_heather.jpg') }}">
   </center>
-  <script>
-    function goToSubpage() {
-      // Przechodzenie do innej podstrony
-      window.location.href = 'https://www.example.com';
-    }
-  </script>
   <div class="footer">
     <p>© 2023 PlantReminder.</p>
   </div>

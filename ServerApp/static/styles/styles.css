@@ -24,6 +24,13 @@ body {
 
 .footer p {
   margin: 0;
-  font-size: 12px;
+  font-size: 1em;
   color: #333;
 }
+
+/*@media (max-width: 1000px) {
+
+  .footer p {
+    font-size: 2em;
+  }
+}*/
