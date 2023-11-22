@@ -145,7 +145,7 @@ class Backend():
                     """
             #jesli poda bledny login to wyskoczy okienko o podanym blednym loginie
             return render_template("index.html") + """
-                <script>document.getElementById("login_error").style.display = "block";</script>
+                <script>document.getElementById("pass_error").style.display = "block";</script>
                 """
 
         # Po kliknięciu "dodaj roślinę lub edytuj roślinę":
