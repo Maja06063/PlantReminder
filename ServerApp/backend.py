@@ -161,6 +161,12 @@ class Backend():
             species_id = request.args.get("species_id")
             return self.my_plants_gen.generate_species_json(species_id)
 
+        @self.app.route('/get_next_user_actions', methods=['GET'])
+        def get_next_user_actions_endpoint():
+            login_cookie = request.cookies.get("login")
+            return self.calendar_pages_gen.prepare_next_user_actions_json(login_cookie)
+
+
         # Request ten jest wysyłany przez klienta w celu zapisania nowej lub edytowanej rośliny.
         @self.app.route('/save_plant', methods=["POST", "PUT"])
         def add_or_edit_plant_endpoint():
@@ -185,7 +191,6 @@ class Backend():
                 return make_response("", 204)
             else:
                 return make_response("", 400)
-
 
         @self.app.route('/update_plant', methods=["PUT"])
         def update_plant_endpoint():

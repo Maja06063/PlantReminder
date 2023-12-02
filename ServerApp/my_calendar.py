@@ -1,5 +1,7 @@
 from flask import render_template
 import json
+from plant import Plant
+from datetime import date, timedelta
 
 """
 Klasa, która zajmuje się generowaniem stron związanych z kalenadarzem
@@ -33,7 +35,7 @@ class CalendarPagesGenerator:
     
     def generate_event_form_page(self, event_id: int, date: str, login: str):
 
-        names_species = self.db.execute("SELECT * FROM PlantNamesSpecies WHERE login='%s';"%login)
+        names_species = self.db.execute("SELECT * FROM PlantNamesSpecies WHERE login='%s';" % login)
 
         if event_id != 0:
             events = self.db.execute("SELECT * FROM SpecialEvent WHERE special_event_id = %d;"%event_id)
@@ -107,3 +109,40 @@ class CalendarPagesGenerator:
             )
         )
         return is_success
+
+    def date_to_care(self, last_action_date: date, days_to_add: int) -> date:
+
+        delta = timedelta(days=days_to_add)
+        today = date.today()
+        result = last_action_date + delta
+
+        return result if result > today else today
+
+    def prepare_next_user_actions_json(self, login) -> str:
+        print("YYYYYYYYYYYY")
+        names_species = self.db.execute("SELECT * FROM PlantNamesSpecies WHERE login='%s';" % login)
+        next_actions = []
+
+        print("TTTTTTTTTTTTTTTTTTTTTTT")
+        for plant_specie in names_species:
+
+            plant_specie = list(plant_specie)
+            if plant_specie[4] == None or plant_specie[5] == None:
+
+                print(plant_specie[8])
+                species = self.db.execute("SELECT * FROM Species WHERE species_id = %d;" % plant_specie[8])
+                species = list(species[0])
+                plant_specie[4] = species[2]
+                plant_specie[5] = species[3]
+
+            water_date = self.date_to_care(plant_specie[6], plant_specie[4])
+            ferlitiz_date = self.date_to_care(plant_specie[7], plant_specie[5])
+
+            action = {
+                "specie_name": plant_specie[3] + " " + plant_specie[2],
+                "water_date": str(water_date),
+                "fertiliz_date": str(ferlitiz_date)
+            }
+            next_actions.append(action)
+
+        return json.dumps(next_actions)

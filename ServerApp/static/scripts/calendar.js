@@ -5,6 +5,7 @@ const months = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "L
 let table_fields = document.querySelectorAll("#calendar tbody td");
 
 let user_events = {};
+let next_actions = [];
 
 function prev_month() {
     browsing_date = new Date(browsing_date.getFullYear(), browsing_date.getMonth() - 1, 1);
@@ -46,6 +47,20 @@ function generate_calendar() {
             }
         }
     }
+    for (const i in next_actions) {
+        water_event_date = new Date(next_actions[i]["water_date"]);
+        fertiliz_event_date = new Date(next_actions[i]["fertiliz_date"]);
+        if(water_event_date.getFullYear()==browsing_date.getFullYear()){
+            if(water_event_date.getMonth()==browsing_date.getMonth()){
+                browsing_date_events.push(next_action_to_user_event(next_actions[i], "Podlej", next_actions[i]["water_date"]));
+            }
+        }
+        if(fertiliz_event_date.getFullYear()==browsing_date.getFullYear()){
+            if(fertiliz_event_date.getMonth()==browsing_date.getMonth()){
+                browsing_date_events.push(next_action_to_user_event(next_actions[i], "Nawieź", next_actions[i]["fertiliz_date"]));
+            }
+        }
+    }
 
     for(i=1;i<days_in_month+2;i++) {
         table_fields[i+first_day_of_week-2].innerHTML = make_day_without_tooltip("other_days_icon", i, browsing_date.getMonth(), browsing_date.getFullYear());
@@ -54,6 +69,7 @@ function generate_calendar() {
         }
 
         let that_day_events=[];
+        console.log(browsing_date_events)
         for(const j in browsing_date_events){
             event_date = new Date(browsing_date_events[j][3]);
             if(event_date.getDate()==i) {
@@ -72,11 +88,25 @@ function generate_calendar() {
     }
 }
 
+function next_action_to_user_event(next_action_dict, action_type, action_date) {
+
+    user_event_dict = [
+        -1, action_type, "", action_date, "", next_action_dict["specie_name"]
+    ];
+    return user_event_dict;
+}
+
 //funkcja do pobierania eventów z serwera
 async function get_user_events() {
 
     const response = await fetch("/user_events");
     user_events = await response.json();
+}
+
+async function get_next_actions() {
+
+    const response = await fetch("/get_next_user_actions");
+    next_actions = await response.json();
 }
 
 function make_day_without_tooltip(css_class, day_number, month_number, year_number) {
@@ -94,8 +124,10 @@ function make_tooltip_for_day(events, css_class, day_number, month_number, year_
         for (const i in needed_indexes) {
             if (events[j][needed_indexes[i]]) tooltiptext += `${events[j][needed_indexes[i]]}<br>`;
         }
+        if (events[j][0] > 0) {
         tooltiptext += `<button id="edit_plant_button" onclick="redirect_to_add_event(${events[j][0]}, ${day_number},${month_number},${year_number} )"><img class="care_icon" src="/static/img/pencil.png" alt="Edytuj"></button>
             <button id="remove_plant_button" onclick="remove_event(${events[j][0]})"><img class="care_icon" src="/static/img/false.png" alt="X"></button>`;
+        }
         tooltiptext += "<hr>";
     }
 
@@ -161,4 +193,5 @@ function log_out() {
 }
 
 get_user_events();
-setTimeout(generate_calendar, 100);
+setTimeout(get_next_actions, 100);
+setTimeout(generate_calendar, 200);

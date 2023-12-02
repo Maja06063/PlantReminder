@@ -1,4 +1,5 @@
 USE plantreminderdb;
+
 DROP VIEW EventOfUsers;
 DROP VIEW PlantNamesSpecies;
 
@@ -7,6 +8,6 @@ SELECT SE.special_event_id, SE.event_name, SE.event_description, SE.event_date, 
 WHERE SE.plant_id=P.plant_id AND S.species_id=P.plant_species;
 
 CREATE VIEW PlantNamesSpecies AS
-SELECT P.plant_id, P.login, P.plant_name, S.name
+SELECT P.plant_id, P.login, P.plant_name, S.name, P.watering_period, P.fertilization_period, P.last_watering_date, P.last_fertilization_date, S.species_id
 FROM Plants P
 JOIN Species S ON S.species_id = P.plant_species;
