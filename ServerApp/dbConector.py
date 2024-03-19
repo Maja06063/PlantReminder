@@ -29,7 +29,7 @@ class DbConnector():
         cursor = self.connection.cursor()
         cursor.execute(sql)
         return cursor.fetchall()
-    #ZAPIS DO BAZYU DANYCH
+    #ZAPIS DO BAZY DANYCH
     # Wykonanie polecenia sql zmieniającego bazę danych:
     def commit(self, sql: str) -> bool:
 
