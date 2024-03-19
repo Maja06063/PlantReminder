@@ -3,7 +3,7 @@
 * [Short description](#short-description)
 * [Technologies](#technologies)
 * [Detailed description](#detailed-description)
-* [Instalation](#installation)
+* [Installation](#installation)
 
 ## Short description
 
