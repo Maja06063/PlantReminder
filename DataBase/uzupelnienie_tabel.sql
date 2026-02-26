@@ -1,4 +1,4 @@
-USE plantreminderdb;
+-- USE plantreminderdb;
 
 DELETE FROM SpecialEvent;
 DELETE FROM Plants;
@@ -21,23 +21,23 @@ INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Monster
 INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Kaktus',21,28);
 INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Wrzos',2,28);
 INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Fikus',10,21);
-INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Paproæ',4,35);
+INSERT INTO Species (name,watering_period,fertilization_period) VALUES ('Paproï¿½',4,35);
 
 INSERT INTO Plants (login,plant_species, plant_name,watering_period,fertilization_period,last_watering_date, last_fertilization_date, plant_description)
-    VALUES ('IrenkaSawicka', 3, 'Ma³a monstera', 8, 20, CAST( NOW() AS Date ), CAST( NOW() AS Date ), 'Roœlina posiada przêdziorki');
+    VALUES ('IrenkaSawicka', 3, 'Maï¿½a monstera', 8, 20, CAST( NOW() AS Date ), CAST( NOW() AS Date ), 'Roï¿½lina posiada przï¿½dziorki');
 
 INSERT INTO Plants (login,plant_species,  plant_name, last_watering_date, last_fertilization_date, plant_description)
-    VALUES ('IrenkaSawicka', 4, 'W kuchi', CAST( NOW() AS Date ), CAST( NOW() AS Date ), 'Nie przelewaæ, lubi du¿o s³oñca');
+    VALUES ('IrenkaSawicka', 4, 'W kuchi', CAST( NOW() AS Date ), CAST( NOW() AS Date ), 'Nie przelewaï¿½, lubi duï¿½o sï¿½oï¿½ca');
 
 INSERT INTO Plants (login, plant_species, last_watering_date, last_fertilization_date) VALUES ('IrenkaSawicka', 5, CAST( NOW() AS Date ), CAST( NOW() AS Date ));
 INSERT INTO Plants (login, plant_species, last_watering_date, last_fertilization_date) VALUES ('Mariusz23', 1, CAST( NOW() AS Date ), CAST( NOW() AS Date ));
-INSERT INTO Plants (login, plant_species,  plant_name, last_watering_date, last_fertilization_date) VALUES ('Mariusz23', 4, 'Ju¿ nie¿ywa', CAST( NOW() AS Date ), CAST( NOW() AS Date ));
+INSERT INTO Plants (login, plant_species,  plant_name, last_watering_date, last_fertilization_date) VALUES ('Mariusz23', 4, 'Juï¿½ nieï¿½ywa', CAST( NOW() AS Date ), CAST( NOW() AS Date ));
 INSERT INTO Plants (login, plant_species, last_watering_date, last_fertilization_date) VALUES ('Wiesiek78', 5, CAST( NOW() AS Date ), CAST( NOW() AS Date ));
 INSERT INTO Plants (login, plant_species, last_watering_date, last_fertilization_date) VALUES ('Wiesiek78', 2, CAST( NOW() AS Date ), CAST( NOW() AS Date ));
 INSERT INTO Plants (login, plant_species, last_watering_date, last_fertilization_date) VALUES ('Wiesiek78', 6, CAST( NOW() AS Date ), CAST( NOW() AS Date ));
 INSERT INTO Plants (login, plant_species, fertilization_period, last_watering_date, last_fertilization_date) VALUES ('KubaK', 5, 15, CAST( NOW() AS Date ), CAST( NOW() AS Date ));
 
-INSERT INTO SpecialEvent (plant_id, event_name, event_description, event_date) VALUES (8, 'Opryskanie roœliny ','Roœlina ma przêdziorki', '2023-09-01');
+INSERT INTO SpecialEvent (plant_id, event_name, event_description, event_date) VALUES (8, 'Opryskanie roï¿½liny ','Roï¿½lina ma przï¿½dziorki', '2023-09-01');
 INSERT INTO SpecialEvent (plant_id, event_name, event_date) VALUES (7, 'Przesadzanie', '2023-09-03');
 INSERT INTO SpecialEvent (plant_id, event_name, event_date) VALUES (8, 'Kupno nowej doniczki', '2023-09-03');
-INSERT INTO SpecialEvent (plant_id, event_name, event_date) VALUES (8, 'Opryskanie roœliny',  CAST( NOW() AS Date ));
+INSERT INTO SpecialEvent (plant_id, event_name, event_date) VALUES (8, 'Opryskanie roï¿½liny',  CAST( NOW() AS Date ));

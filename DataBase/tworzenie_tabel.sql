@@ -1,9 +1,9 @@
-USE plantreminderdb;
+-- USE plantreminderdb;
 
-DROP TABLE SpecialEvent;
-DROP TABLE Plants;
-DROP TABLE Species;
-DROP TABLE UserName;
+DROP TABLE IF EXISTS SpecialEvent;
+DROP TABLE IF EXISTS Plants;
+DROP TABLE IF EXISTS Species;
+DROP TABLE IF EXISTS UserName;
 
 CREATE TABLE UserName(
     login varchar(255) NOT NULL PRIMARY KEY,
