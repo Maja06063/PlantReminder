@@ -5,7 +5,7 @@ Klasa DbConnector służy się do połączenia się aplikacji serwerowej z bazą
 class DbConnector():
 
     #Sprawdzenie połączenia z bazą
-    def __init__(self) -> None:
+    def __init__(self, db: str) -> None:
         
         self.connection = None
 
@@ -14,7 +14,7 @@ class DbConnector():
                 host='localhost',
                 user='sqluser',
                 password='1234',
-                database='plantreminderdb'
+                database=db
             )
             if self.connection.is_connected():
                 print("Database connected")
