@@ -1,4 +1,6 @@
+import os
 import unittest
+
 from hash import Hasher
 from dbConector import DbConnector
 from backend import Backend
@@ -13,13 +15,13 @@ class TestApp(unittest.TestCase):
         self.assertEqual(hasher.hash_password("alamakota1"), "0099c0edac533c3e3a7a43874c8af9e8")
 
     def test_database_connection(self):
-        dbconnector = DbConnector()
+        dbconnector = DbConnector(os.getenv("DB_NAME", "plantreminderdb"))
         tables = dbconnector.execute("SHOW TABLES;")
         self.assertTrue(tables)
 
     def test_adding_database_to_backend(self):
-        dbconnector = DbConnector()
-        backend = Backend()
+        dbconnector = DbConnector(os.getenv("DB_NAME", "plantreminderdb"))
+        backend = Backend(os.getenv("BACKEND_PORT", 5000))
         backend.add_database(dbconnector)
         self.assertEqual(backend.db, dbconnector)
 
