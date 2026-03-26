@@ -27,6 +27,10 @@ class Backend():
 
     LOGGED_OUT_LOCATION = "<script>location.href = '/';</script>" # Jeśli nie zalogowany, to przekierowywujemy na stronę główną
 
+    def __init__(self, port: int):
+        
+        self.port = port
+
     def is_user_logged(self, cookies: dict) -> bool:
 
         # Po wykonaniu poniższej linii rows zawiera listę użytkowników o loginie odczytanym z ciasteczka "login":
@@ -269,7 +273,7 @@ class Backend():
     działa ona w sposób blokujący (nieskończona pętla).
     """
     def run(self):
-        self.app.run(debug=True, host="0.0.0.0")
+        self.app.run(debug=True, host="0.0.0.0", port=self.port)
 
     """
     Metoda ta dodaje obiekt połączenia z bazą danych do backendu.

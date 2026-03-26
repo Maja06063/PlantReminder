@@ -1,11 +1,12 @@
 import mysql.connector
+import os
 """
 Klasa DbConnector służy się do połączenia się aplikacji serwerowej z bazą danych MySQL
 """
 class DbConnector():
 
     #Sprawdzenie połączenia z bazą
-    def __init__(self) -> None:
+    def __init__(self, db: str) -> None:
         
         self.connection = None
 
@@ -13,8 +14,8 @@ class DbConnector():
             self.connection = mysql.connector.connect(
                 host='localhost',
                 user='sqluser',
-                password='1234',
-                database='plantreminderdb'
+                password=os.getenv("DB_CRED_PSW", "1234"),
+                database=db
             )
             if self.connection.is_connected():
                 print("Database connected")
